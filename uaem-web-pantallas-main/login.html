@@ -10,21 +10,53 @@
 <body>
     <div id="headerContainer"></div>
 
-    <div id="container">
-        <div id="left">
-            <img src="img/uaem.png" style="width: 70%;" />
-        </div>
-        <div id="right">
-            <h1 style="margin-bottom: 100px;">¡Bienvenido!</h1>
-            <p style="margin-bottom: 30px;">Inicia sesión con tu cuenta</p>
-            <input class="Login" type="text" name="usuario" id="usuario" placeholder="Usuario" />
-            <div class="input-group">
-                <input class="Login" type="password" name="password" id="password" placeholder="Contraseña" />
-                <button id="show_password" class="btn btn-primary" type="button" onclick="mostrarPassword()"> 
-                    <img class="showPassword2" src="img/invisible.png" width="30px" /> 
-                </button>              
+    <!-- NavBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="./index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./evaluaciondocente.html">Evaluación Docente</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./formaciondocente.html">Formación Docente</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./documentosconsulta.html">Documentos de Consulta</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./contacto.html">Contacto</a>
+                    </li>
+                </ul>
+                <a class="navbar-brand ms-auto" href="./index.html">UAEM</a>
             </div>
-            <button id="btn_login" onclick="validar()">Iniciar Sesión</button>
+        </div>
+    </nav>
+
+    <div id="container">
+        <div class="login-card">
+            <div id="left">
+                <img src="img/uaem.png" style="width: 50%;" />
+                <span>Departamento de Formación Docente</span>
+            </div>
+            <div id="right">
+                <h1>¡Bienvenido!</h1>
+                <p>Inicia sesión con tu cuenta</p>
+                <input class="Login" type="text" name="usuario" id="usuario" placeholder="Usuario" />
+                <div class="input-group">
+                    <input class="Login" type="password" name="password" id="password" placeholder="Contraseña" />
+                    <button id="show_password" class="btn btn-primary" type="button" onclick="mostrarPassword()"> 
+                        <img class="showPassword2" src="img/invisible.png" width="30px" /> 
+                    </button>              
+                </div>
+                <button id="btn_login" onclick="validar()">Iniciar Sesión</button>
+            </div>
         </div>
     </div>
     
@@ -54,5 +86,20 @@
     </footer>
 
     <script src="js/login.js"></script>
+    <script>
+        function mostrarPassword() {
+            const passwordInput = document.getElementById('password');
+            const showPasswordButton = document.getElementById('show_password');
+            const showPasswordIcon = showPasswordButton.querySelector('img');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                showPasswordIcon.src = 'img/visible.png'; //  ojo tachado
+            } else {
+                passwordInput.type = 'password';
+                showPasswordIcon.src = 'img/invisible.png'; // ojo visible
+            }
+        }
+    </script>
 </body>
 </html>

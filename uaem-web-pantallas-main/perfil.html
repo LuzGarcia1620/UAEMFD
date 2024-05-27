@@ -1,79 +1,121 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Perfil de Usuario</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/profile.css" />
 </head>
+
 <body>
-    <Flex row id="container">
-        <div id="main">
-          <SideMenu selected={5} />
-          <div id="der">
-            <div id="der-main">
-              <div id="info">
-                <h1>Perfil</h1>
-                <h1>{nombre}</h1>
+  <div id="headerContainer"></div>
+  <div id="menuContainer"></div>
+
+  <div class="container-fluid">
+    <div class="row flex-grow-1">
+      <nav id="menuContainer" class="col-md-4 sidebar"></nav>
+      <main class="col-md-5 main-content">
+        <h1 class="text-center">¡Bienvenida!</h1>
+        <!-- línea -->
+        <div class="line" style="top: 201px;"></div>
+        <form>
+          <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input type="text" class="form-control" id="nombre" value="Beatriz" readonly />
+          </div>
+          <div class="form-group">
+            <label for="usuario">Usuario:</label>
+            <input type="text" class="form-control" id="usuario" value="Beatriz" readonly />
+          </div>
+          <div class="form-group">
+            <label for="puesto">Puesto:</label>
+            <input type="text" class="form-control" id="puesto" value="SuperAdmin" readonly />
+          </div>
+          <div class="form-group">
+            <label for="correo">Correo:</label>
+            <input type="email" class="form-control" id="correo" value="Beatrize@uaem.mx" readonly />
+          </div>
+          <div class="form-group">
+            <label for="contraseña">Contraseña:</label>
+            <div class="input-group">
+              <input type="password" class="form-control" id="contraseña" value="asd123" readonly />
+              <div class="input-group-append">
+                <span class="input-group-text" onclick="togglePassword('contraseña', this)">
+                  <i class="fa fa-eye"></i>
+                </span>
               </div>
-              <hr />
-
-              <h1 style="color: black">Datos Personales</h1>
-              <form>      
-                <div className="info-personal" >
-                  <div id="info-1" style="display:flex; justify-Content:space-evenly; margin-Top:5%">
-                    <div className="field">
-                      <span className="labInp" style="font-Size:30px">Usuario</span>
-                      <input disabled style="width: 90%; font-Size:30px" type="text" placeholder="Usuario" value={usuario} />
-                    </div>
-
-                    <div className="field">
-                      <span className="labInp" style="font-Size:30px">Puesto</span>
-                      <input disabled style="width:90%; font-Size:30px" type="text" placeholder="Puesto" value={puesto} />
-                    </div>
-                  </div>
-                
-
-                <div id="info-1" style="display: flex; flex-Flow: row; justify-Content: space-evenly; margin-Top: 6%">
-                  <div className="field">
-                    <span className="labInp" style="font-Size: 30px">Contacto</span>
-                    <input disabled style="width: 90%; font-Size: 30px" type="text" placeholder="Contacto" value={contacto} />
-                  </div>
-
-                  <div className="field">
-                    <span className="labInp" style="font-Size: 30px">Correo</span>
-                    <input disabled  style="width: 90%; font-Size: 30px" type="text" placeholder="Correo" value={correo} />
-                  </div>
-                </div>
-                
-                </div>
-              </form>
-
-              <form style="display: flex; flex-Flow: column; justify-Content: center; margin-Top: 4%">                
-                <div style="display: flex; justify-Content: center; align-Self: center; width: 80%; background: #bebebe; font-Size: 22px; border-Top: 2px solid black; border-Left: 2px solid black; border-Right: 2px solid black">Cambio de Contraseña</div>
-                <div style="display: 'flex', justifyContent: 'center'}}>
-                <div className="info-1" style={{display: 'flex', justifyContent: 'space-evenly', width: '80%', backgroundColor: '#a5daff', borderBottomLeftRadius: 5, border: '2px solid black', borderBottomRightRadius: 5}}>
-                  <span></span>
-                  <span></span>
-                  <div className="field">
-                    <span className="labelContra">Nueva Contraseña: 
-                      <input type="text" placeholder="Nueva contraseña" value={contrasenia} onChange={(e) => setContrasenia(e.target.value)} />
-                    </span>
-                  </div>
-
-                  <div className="field">
-                  <span className="labelContra">Repetir Contraseña:
-                      <input type="text" placeholder="Repetir Contraseña" value={newContra} onChange={(e) => setNewContra(e.target.value)} />
-                    </span>
-                  </div>
-
-                  <button className="btn btn-primary" style={{height: '60%', alignSelf: 'center'}} onClick={() => cambiarContra()}>Enviar</button>
-                </div>
-                </div>
-              </form>
-
             </div>
           </div>
-        </div>
-      </Flex>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="newPassword">Nueva contraseña</label>
+              <div class="input-group">
+                <input type="password" class="form-control" id="newPassword" />
+                <div class="input-group-append">
+                  <span class="input-group-text" onclick="togglePassword('newPassword', this)">
+                    <i class="fa fa-eye"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="repeatPassword">Repetir contraseña</label>
+              <div class="input-group">
+                <input type="password" class="form-control" id="repeatPassword" />
+                <div class="input-group-append">
+                  <span class="input-group-text" onclick="togglePassword('repeatPassword', this)">
+                    <i class="fa fa-eye"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block btn-custom">
+            Guardar
+          </button>
+        </form>
+      </main>
+    </div>
+  </div>
+  <div id="footerContainer"></div>
+
+  <script>
+    function togglePassword(id, element) {
+      const input = document.getElementById(id);
+      if (input.type === "password") {
+        input.type = "text";
+        element.querySelector("i").classList.remove("fa-eye");
+        element.querySelector("i").classList.add("fa-eye-slash");
+      } else {
+        input.type = "password";
+        element.querySelector("i").classList.remove("fa-eye-slash");
+        element.querySelector("i").classList.add("fa-eye");
+      }
+    }
+
+    fetch("./templates/header.html")
+      .then((response) => response.text())
+      .then((data) => {
+        document.getElementById("headerContainer").innerHTML = data;
+      });
+    fetch("./templates/footer.html")
+      .then((response) => response.text())
+      .then((data) => {
+        document.getElementById("footerContainer").innerHTML = data;
+      });
+    fetch("./templates/menu.html")
+      .then((response) => response.text())
+      .then((data) => {
+        document.getElementById("menuContainer").innerHTML = data;
+      });
+  </script>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
+
 </html>

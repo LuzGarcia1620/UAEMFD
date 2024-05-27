@@ -1,0 +1,59 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+.container-fluid {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.main-content {
+    flex: 1;
+}
+#footerContainer {
+    background-color: #f8f9fa;
+}
+.btn-custom {
+    font-size: 1.25rem; 
+    padding: 0.75rem 1.5rem; 
+}
+.btn-custom:hover {
+    background-color: #007bff; 
+    border-color: #007bff;
+    
+}
+
+.sidebar {
+    background-color: #d3d4d6;
+    padding-top: 20px;
+    margin-top: 20px;
+    width: 50px; /* Ajusta el ancho según sea necesario */
+    margin-right: 20px; /* Agrega margen derecho para separarlo del contenido principal */
+}
+
+
+.sidebar a {
+    display: block;
+    color: black;
+    padding: 10px 20px; /* Reducir el relleno */
+    text-align: left;
+    text-decoration: none;
+    font-size: 1.25rem;
+    border: 1px solid #bfc0c2; /* Agregar borde */
+    border-radius: 5px; /* Agregar bordes redondeados */
+    margin-bottom: 5px; /* Agregar espacio entre los botones */
+    height: 70px;
+}
+
+.sidebar a:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.line {
+    width: 688.01px;
+    height: 0;
+    left: 490px;
+    position: absolute;
+    border: 1px #c9c9c9 solid;
+}
