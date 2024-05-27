@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <Flex row id="container">
+        <div id="main">
+          <SideMenu selected={5} />
+          <div id="der">
+            <div id="der-main">
+              <div id="info">
+                <h1>Perfil</h1>
+                <h1>{nombre}</h1>
+              </div>
+              <hr />
+
+              <h1 style="color: black">Datos Personales</h1>
+              <form>      
+                <div className="info-personal" >
+                  <div id="info-1" style="display:flex; justify-Content:space-evenly; margin-Top:5%">
+                    <div className="field">
+                      <span className="labInp" style="font-Size:30px">Usuario</span>
+                      <input disabled style="width: 90%; font-Size:30px" type="text" placeholder="Usuario" value={usuario} />
+                    </div>
+
+                    <div className="field">
+                      <span className="labInp" style="font-Size:30px">Puesto</span>
+                      <input disabled style="width:90%; font-Size:30px" type="text" placeholder="Puesto" value={puesto} />
+                    </div>
+                  </div>
+                
+
+                <div id="info-1" style="display: flex; flex-Flow: row; justify-Content: space-evenly; margin-Top: 6%">
+                  <div className="field">
+                    <span className="labInp" style="font-Size: 30px">Contacto</span>
+                    <input disabled style="width: 90%; font-Size: 30px" type="text" placeholder="Contacto" value={contacto} />
+                  </div>
+
+                  <div className="field">
+                    <span className="labInp" style="font-Size: 30px">Correo</span>
+                    <input disabled  style="width: 90%; font-Size: 30px" type="text" placeholder="Correo" value={correo} />
+                  </div>
+                </div>
+                
+                </div>
+              </form>
+
+              <form style="display: flex; flex-Flow: column; justify-Content: center; margin-Top: 4%">                
+                <div style="display: flex; justify-Content: center; align-Self: center; width: 80%; background: #bebebe; font-Size: 22px; border-Top: 2px solid black; border-Left: 2px solid black; border-Right: 2px solid black">Cambio de Contraseña</div>
+                <div style="display: 'flex', justifyContent: 'center'}}>
+                <div className="info-1" style={{display: 'flex', justifyContent: 'space-evenly', width: '80%', backgroundColor: '#a5daff', borderBottomLeftRadius: 5, border: '2px solid black', borderBottomRightRadius: 5}}>
+                  <span></span>
+                  <span></span>
+                  <div className="field">
+                    <span className="labelContra">Nueva Contraseña: 
+                      <input type="text" placeholder="Nueva contraseña" value={contrasenia} onChange={(e) => setContrasenia(e.target.value)} />
+                    </span>
+                  </div>
+
+                  <div className="field">
+                  <span className="labelContra">Repetir Contraseña:
+                      <input type="text" placeholder="Repetir Contraseña" value={newContra} onChange={(e) => setNewContra(e.target.value)} />
+                    </span>
+                  </div>
+
+                  <button className="btn btn-primary" style={{height: '60%', alignSelf: 'center'}} onClick={() => cambiarContra()}>Enviar</button>
+                </div>
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </Flex>
+</body>
+</html>
