@@ -47,7 +47,7 @@
 
 /* Contenedor del pie de página fijado en la parte inferior de la página */
 #footerContainer {
-    position: fixed;
+    position: relative;
     left: 0;
     bottom: 0;
     width: 100%;
@@ -102,86 +102,20 @@ nav {
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
 }
 
-/*===== BOTÓN PERSONALIZADO carrusel=====*/
-/* Estilo personalizado para el botón del carrusel
----
-Estilo personalizado para el botón del carrusel
-.btn-custom {
-    position: relative;
-  overflow: hidden;
-  height: 3rem;
-  padding: 0 2rem;
-  border-radius: 1.5rem;
-  background: #3d3a4e;
-  background-size: 400%;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-}
 
-Cambia el color del botón al pasar el cursor sobre él
-.btn-custom:hover::before {
-    transform: scaleX(1);
-}
-.btn-custom::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: scaleX(0);
-    transform-origin: 0 50%;
-    width: 100%;
-    height: inherit;
-    border-radius: inherit;
-    background: linear-gradient(
-      82.3deg,
-      rgba(150, 93, 233, 1) 10.8%,
-      rgba(99, 88, 238, 1) 94.3%
-    );
-    transition: all 0.475s;
-  }
-
-//
-//
-//
-Estilo personalizado para el botón del carrusel
-.btn-custom {
-    display: inline-flex;
-    align-items: center;
-    background-color: #e6283b;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    text-decoration: none;
-}
-
- Cambia el color del botón al pasar el cursor sobre él 
-.btn-custom:hover {
-    background-color: #c82333;
-    color: white;
-}
-
- Estilo para el icono del botón Carrusel
-.btn-icon {
-    height: 16px;
-    margin-right: 10px;
-}
----
-*/
 .btn-custom {
     position: relative;
     overflow: hidden;
     height: 3rem;
     padding: 0 2rem;
-    border-radius: 1.5rem;
-    background: #e6283b;
-    color: #fff;
+    border-radius: 25x;
+    background: #3b28e6;
+    color: #000000;
     border: none;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    text-decoration: none;
 }
 /* Espacio entre el icono y el texto */
 .btn-custom .btn-icon {
@@ -192,57 +126,29 @@ Estilo personalizado para el botón del carrusel
     transform: scaleX(1);
 }
 
-.btn-custom::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: scaleX(0);
-    transform-origin: 0 50%;
-    width: 100%;
-    height: 100%;
-    border-radius: inherit;
-    background: linear-gradient(
-      82.3deg,
-      rgba(150, 93, 233, 1) 10.8%,
-      rgba(99, 88, 238, 1) 94.3%
-    );
-    transition: transform 0.475s;
-    z-index: 0;
-}
-
-.btn-custom .button-content {
-    position: relative;
-    z-index: 1;
-}
-
 
 /*===== NAVEGACIÓN VERTICAL =====*/
 /* Estilo para la barra de navegación vertical */
 .vertical-nav {
-    list-style-type: none;
-    margin: 0;
     padding: 0;
-    width: 200px;
-    background-color: #f1f1f1;
-    position: fixed;
+    background-color: #F6F6F6;
+    position: sticky;
     top: 0;
     left: 0;
-    height: 100vh; /* Establece la altura de la barra al 100% de la altura de la ventana */
-    overflow-y: auto; /* Agrega desplazamiento vertical si el contenido excede la altura */
+    right: 0;
 }
 
 /* Estilo para los enlaces en la navegación vertical */
 .vertical-nav a {
     display: block;
-    color: #000;
+    color: #000000;
     padding: 8px 16px;
     text-decoration: none;
 }
 
 /* Cambia el color del enlace al pasar el cursor sobre él */
 .vertical-nav a:hover {
-    background-color: #555;
+    background-color: #0066ff;
     color: white;
 }
 
@@ -282,3 +188,9 @@ background-color: #204C87;
     margin-right: auto;
 }
 
+.menu{
+    height: 50px;
+    justify-content: center;
+    background-color: #DEE0E5;
+    
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Perfil de Usuario</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/perfil.css" />
+</head>
+<body>
+  <div id="headerContainer"></div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-2 bg-light">
+        <ul class="list-unstyled">
+          <li><a href="perfil.html" class="btn btn-primary btn-block my-1 menu">Perfil</a></li>
+          <li><a href="actividadformativa.html" class="btn btn-primary btn-block my-1 menu">Actividad Formativa</a></li>
+          <li><a href="usuarios.html" class="btn btn-primary btn-block my-1 custom-btn-lateral menu">Usuarios</a></li>
+          <li><a href="consultas.html" class="btn btn-primary btn-block my-1 menu">Consultas</a></li>
+          <li><a href="asistencia.html" class="btn btn-primary btn-block my-1 menu">Asistencia</a></li>
+          <li><a href="salir.html" class="btn btn-primary btn-block my-1 menu">Salir</a></li>
+        </ul>
+      </div>
+      <!-- Main Content -->
+      
+
+  <script>
+    function togglePassword(id, element) {
+      const input = document.getElementById(id);
+      if (input.type === "password") {
+        input.type = "text";
+        element.querySelector("i").classList.remove("fa-eye");
+        element.querySelector("i").classList.add("fa-eye-slash");
+      } else {
+        input.type = "password";
+        element.querySelector("i").classList.remove("fa-eye-slash");
+        element.querySelector("i").classList.add("fa-eye");
+      }
+    }
+
+    fetch("./templates/header.html")
+      .then((response) => response.text())
+      .then((data) => {
+        document.getElementById("headerContainer").innerHTML = data;
+      });
+    fetch("./templates/menu.html")
+      .then((response) => response.text())
+      .then((data) => {
+        document.getElementById("menuContainer").innerHTML = data;
+      });
+  </script>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
