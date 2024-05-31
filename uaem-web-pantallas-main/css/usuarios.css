@@ -1,0 +1,143 @@
+body {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+.container-fluid {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.footer {
+    background-color: rgb(24, 24, 150);
+    color: white;
+    text-align: center;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    height: 70px;
+}
+
+#footerContainer {
+    background-color: #f8f9fa;
+}
+
+/*===== usuarios =====*/
+
+.card-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.card {
+    width: 100%;
+    max-width: 301px;
+    background: white;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 13px;
+    padding: 20px;
+    position: relative;
+}
+
+.name {
+    margin-top: 20px;
+    color: black;
+    font-size: 20px;
+    font-family: Aleo, sans-serif;
+    font-weight: 400;
+}
+
+.label, .email, .role {
+    color: black;
+    font-size: 13px;
+    font-family: Aleo, sans-serif;
+    font-weight: 400;
+}
+
+.label {
+    margin-top: 10px;
+}
+
+.email {
+    margin-top: 10px;
+}
+
+.role {
+    margin-top: 10px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.button {
+    width: 80px;
+    height: 30px;
+    border-radius: 6px;
+    color: #F6F6F6;
+    font-size: 13px;
+    font-family: Aleo, sans-serif;
+    font-weight: 400;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.edit-btn {
+    background: #001D7D;
+}
+
+.deactivate-btn {
+    background: #E79F00;
+}
+
+.delete-btn {
+    background: #8B0007;
+}
+
+/* Top Bar Styles */
+.top-bar-container {
+    width: 330px;
+    height: 64px;
+    left: 0px;
+    top: 0px;
+    position: absolute;
+    background: white;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 75px;
+  }
+  
+  .top-bar-text {
+    width: 184px;
+    height: 31px;
+    left: 67px;
+    top: 16px;
+    position: absolute;
+    color: #A8A8A8;
+    font-size: 16px;
+    font-family: Aleo;
+    font-weight: 400;
+    word-wrap: break-word;
+  }
+  
+  .top-bar-icon {
+    width: 32px;
+    height: 30px;
+    left: 15px;
+    top: 17px;
+    position: absolute;
+  }
+  
+  .profile-icon {
+    width: 50px;
+    height: 50px;
+  }
+  

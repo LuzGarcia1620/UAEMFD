@@ -5,37 +5,119 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Perfil de Usuario</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="css/perfil.css" />
+  <link rel="stylesheet" href="css/ActividadFormativa.css" />
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
   <div id="headerContainer"></div>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-lg-2 bg-light">
-        <ul class="list-unstyled">
-          <li><a href="perfil.html" class="btn btn-primary btn-block my-1 menu">Perfil</a></li>
+      <!-- Navegación Vertical -->
+      <div class="col-lg-2">
+        <ul class="list-unstyled vertical-nav">
+          <li><a href="perfil.html" class="btn  btn-block my-1 menu">Perfil</a></li>
           <li><a href="actividadformativa.html" class="btn btn-primary btn-block my-1 menu">Actividad Formativa</a></li>
-          <li><a href="usuarios.html" class="btn btn-primary btn-block my-1 custom-btn-lateral menu">Usuarios</a></li>
+          <li><a href="usuarios.html" class="btn btn-primary btn-block my-1 menu">Usuarios</a></li>
           <li><a href="consultas.html" class="btn btn-primary btn-block my-1 menu">Consultas</a></li>
           <li><a href="asistencia.html" class="btn btn-primary btn-block my-1 menu">Asistencia</a></li>
           <li><a href="salir.html" class="btn btn-primary btn-block my-1 menu">Salir</a></li>
         </ul>
       </div>
-      <!-- Main Content -->
-      
+      <!-- Contenido Principal -->
+      <div class="col-lg-10 min-vh-100">
+        <div class="titulo">Actividades</div>
+        <div>
+          <button class="green-button">Nueva actividad</button>
+        </div>
+        <div class="divider-line"></div>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Actividad</th>
+              <th>Status</th>
+              <th>Gestión</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Actividad 1</td>
+              <td>Completado</td>
+              <td>
+                <div class="img-container">
+                  <img src="img/lupa.png" alt="ver" onclick="openModal('modal1')" />
+                  <img src="img/editar.png" alt="editar" onclick="openModal('modal2')" />
+                  <img src="img/borrar.png" alt="borrar" onclick="openModal('modal3')" />
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div id="footerContainer"></div>
+
+  <!-- Modales -->
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <div class="modal-body-content">
+        <div class="modal-footer-title">Ver Actividad</div>
+        <div class="divider-line"></div>
+        <div class="modal-body-title">Desarrollo de actividades dentro del aula</div>
+        <p>Dirigido: personal académico de la UAEM</p>
+        <p>Objetivo: Reconocer la utilidad y pertinencia de diversas<br />herramientas didácticas aplicables a la planeación didáctica</p>
+        <p>Imparte: Dra. Paulina Lizette Toscano Arenas, Docente de la UAEM</p>
+        <p>Modalidad: En línea</p>
+        <p>Duración: 20 horas distribuidas en 5 horas sincrónicas y 15 horas asincrónicas.</p>
+        <p>Fecha: 22 al 26 de enero de 2024</p>
+        <p>Horario: 9:00 a 10:00 h</p>
+        
+        <div class="button-container">
+          <div>
+            <button class="blue-button" onclick="closeModal('modal1')">Regresar</button>
+          </div>
+          <div>
+            <button class="green-button">Enviar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal2" class="modal">
+    <div class="modal-content">
+      <p>Contenido del segundo modal.</p>
+      <div class="button-container">
+        <button class="blue-button" onclick="closeModal('modal2')">Regresar</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal3" class="modal">
+    <div class="modal-content">
+      <p>Contenido del tercer modal.</p>
+      <div class="button-container">
+        <button class="blue-button" onclick="closeModal('modal3')">Regresar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Departamento de Formación Docente</p>
+    <p>Av. Universidad 1001 Col. Chamilpa C.P. 62209, Cuernavaca, Morelos</p>
+  </footer>
 
   <script>
-    function togglePassword(id, element) {
-      const input = document.getElementById(id);
-      if (input.type === "password") {
-        input.type = "text";
-        element.querySelector("i").classList.remove("fa-eye");
-        element.querySelector("i").classList.add("fa-eye-slash");
-      } else {
-        input.type = "password";
-        element.querySelector("i").classList.remove("fa-eye-slash");
-        element.querySelector("i").classList.add("fa-eye");
-      }
+    function openModal(modalId) {
+      const modal = document.getElementById(modalId);
+      modal.style.display = "block";
+    }
+
+    function closeModal(modalId) {
+      const modal = document.getElementById(modalId);
+      modal.style.display = "none";
     }
 
     fetch("./templates/header.html")
@@ -47,6 +129,11 @@
       .then((response) => response.text())
       .then((data) => {
         document.getElementById("menuContainer").innerHTML = data;
+      });
+    fetch("./templates/footer.html")
+      .then((response) => response.text())
+      .then((data) => {
+        document.getElementById("footer").innerHTML = data;
       });
   </script>
 

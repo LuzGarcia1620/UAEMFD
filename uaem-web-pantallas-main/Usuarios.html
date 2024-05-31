@@ -5,39 +5,79 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Perfil de Usuario</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="css/perfil.css" />
+  <link rel="stylesheet" href="css/usuarios.css" />
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
   <div id="headerContainer"></div>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-lg-2 bg-light">
-        <ul class="list-unstyled">
-          <li><a href="perfil.html" class="btn btn-primary btn-block my-1 menu">Perfil</a></li>
+      <!-- Navegación Vertical -->
+      <div class="col-lg-2">
+        <ul class="list-unstyled vertical-nav">
+          <li><a href="perfil.html" class="btn btn-block my-1 menu">Perfil</a></li>
           <li><a href="actividadformativa.html" class="btn btn-primary btn-block my-1 menu">Actividad Formativa</a></li>
-          <li><a href="usuarios.html" class="btn btn-primary btn-block my-1 custom-btn-lateral menu">Usuarios</a></li>
+          <li><a href="usuarios.html" class="btn btn-primary btn-block my-1 menu">Usuarios</a></li>
           <li><a href="consultas.html" class="btn btn-primary btn-block my-1 menu">Consultas</a></li>
           <li><a href="asistencia.html" class="btn btn-primary btn-block my-1 menu">Asistencia</a></li>
           <li><a href="salir.html" class="btn btn-primary btn-block my-1 menu">Salir</a></li>
         </ul>
       </div>
-      <!-- Main Content -->
+      <!-- Contenido Principal -->
       
+      <div class="col-lg-10">
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <div class="card">
+              <div class="name">María Gonzalez</div>
+              <div class="label">Correo:</div>
+              <div class="email">mariagonzalez@uaem.mx</div>
+              <div class="role">instructor</div>
+              <div class="button-container">
+                <div class="button edit-btn">Editar</div>
+                <div class="button deactivate-btn">Desactivar</div>
+                <div class="button delete-btn">Eliminar</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 ">
+            <div class="card">
+              <div class="name">Carlos Lopez</div>
+              <div class="label">Correo:</div>
+              <div class="email">carloslopez@uaem.mx</div>
+              <div class="role">instructor</div>
+              <div class="button-container">
+                <div class="button edit-btn">Editar</div>
+                <div class="button deactivate-btn">Desactivar</div>
+                <div class="button delete-btn">Eliminar</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <div class="card">
+              <div class="name">Ana Martinez</div>
+              <div class="label">Correo:</div>
+              <div class="email">anamartinez@uaem.mx</div>
+              <div class="role">instructor</div>
+              <div class="button-container">
+                <div class="button edit-btn">Editar</div>
+                <div class="button deactivate-btn">Desactivar</div>
+                <div class="button delete-btn">Eliminar</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Departamento de Formación Docente</p>
+    <p>Av. Universidad 1001 Col. Chamilpa C.P. 62209, Cuernavaca, Morelos</p>
+  </footer>
 
   <script>
-    function togglePassword(id, element) {
-      const input = document.getElementById(id);
-      if (input.type === "password") {
-        input.type = "text";
-        element.querySelector("i").classList.remove("fa-eye");
-        element.querySelector("i").classList.add("fa-eye-slash");
-      } else {
-        input.type = "password";
-        element.querySelector("i").classList.remove("fa-eye-slash");
-        element.querySelector("i").classList.add("fa-eye");
-      }
-    }
-
     fetch("./templates/header.html")
       .then((response) => response.text())
       .then((data) => {
@@ -47,6 +87,11 @@
       .then((response) => response.text())
       .then((data) => {
         document.getElementById("menuContainer").innerHTML = data;
+      });
+    fetch("./templates/footer.html")
+      .then((response) => response.text())
+      .then((data) => {
+        document.getElementById("footer").innerHTML = data;
       });
   </script>
 

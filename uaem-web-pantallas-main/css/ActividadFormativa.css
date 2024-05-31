@@ -1,0 +1,268 @@
+.card {
+    border-radius: 25px;
+  }
+
+  .blue-card {
+    width: 401px;
+    height: 310px;
+    background: #002E60;
+  }
+
+  .green-card {
+    width: 212px;
+    height: 310px;
+    background: #009475;
+  }
+
+  p{
+    font-weight: bold;
+  }
+
+  .white-card {
+    width: 861px;
+    height: 244px;
+    background: white;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+  }
+
+
+  .titulo{
+    font-size: 50px;
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+  }
+
+  .status,
+  .activity,
+  .management {
+    text-align: center;
+    color: white;
+    font-size: 22px;
+    font-family: Inter, sans-serif;
+    font-weight: 700;
+    word-wrap: break-word;
+  }
+
+  .status {
+    width: 202px;
+    height: 25.27px;
+  }
+
+  .activity {
+    width: 107px;
+    height: 26px;
+  }
+
+  .management {
+    width: 122px;
+    height: 25px;
+  }
+
+  .gray-bar {
+    width: 861px;
+    height: 61px;
+    background: #D9D9D9;
+  }
+
+  .divider {
+    width: 244px;
+    height: 0px;
+    transform: rotate(90deg);
+    transform-origin: 0 0;
+    border: 1px #B6B6B6 solid;
+  }
+
+  .text-small {
+    color: black;
+    font-size: 13px;
+    font-family: Aleo, serif;
+    font-weight: 400;
+    word-wrap: break-word;
+  }
+
+  .text-medium {
+    color: black;
+    font-size: 18px;
+    font-family: Inter, sans-serif;
+    font-weight: 700;
+    text-align: center;
+    word-wrap: break-word;
+  }
+
+  .text-large {
+    color: black;
+    font-size: 14px;
+    font-family: Inter, sans-serif;
+    font-weight: 700;
+    text-align: center;
+    word-wrap: break-word;
+  }
+
+  .img-container {
+    width: 192px;
+    height: 40px;
+    position: relative;
+  }
+
+  .img-container img {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    cursor: pointer;
+  }
+
+  .img-container img:first-child {
+    left: 0px;
+  }
+
+  .img-container img:nth-child(2) {
+    left: 74px;
+  }
+
+  .img-container img:nth-child(3) {
+    left: 152px;
+  }
+
+  .modal {
+    display: none;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    margin-top: 90px;
+  }
+
+  .close {
+    color: #aaa;
+    float: right; /* Este estilo asegura que el botón de cerrar esté alineado a la derecha */
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+  table {
+    width: 100%;
+    max-width: 600px;
+    margin-top: 20px;
+  }
+
+  th,
+  td {
+    padding: 10px;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .modal-body-content {
+    color: black;
+    font-size: 16px;
+    font-family: Aleo, serif;
+    font-weight: 400;
+    word-wrap: break-word;
+  }
+
+  .modal-body-title {
+    color: black;
+    font-size: 20px;
+    font-family: Aleo, serif;
+    font-weight: 700;
+    word-wrap: break-word;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+
+  .button-container div {
+    width: 138px;
+    height: 37px;
+    position: relative;
+  }
+
+  css
+.blue-button {
+  background: #001660;
+  border-radius: 9px;
+  border: 1px black solid;
+  color: white;
+  height: 40px;
+  width: 120px;
+  cursor: pointer;
+}
+
+.blue-button:hover {
+  background: #004080;
+}
+
+  .button-container .blue-button {
+    background: #001660;
+    border-radius: 9px;
+    border: 1px black solid;
+    color: white;
+    height: 40px;
+    width: 120px;
+  }
+
+  .button-container .green-button {
+    background: #009475;
+    border-radius: 9px;
+    border: 1px black solid;
+    color: white;
+    height: 40px;
+    width: 120px;
+  }
+
+  .button-container .button-text {
+    text-align: center;
+    color: white;
+    font-size: 14px;
+    font-family: Aleo, serif;
+    font-weight: 400;
+    word-wrap: break-word;
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .modal-footer-title {
+    color: black;
+    font-size: 29px;
+    font-family: Arial, sans-serif;
+    font-weight: 400;
+    word-wrap: break-word;
+    margin-top: 20px;
+  }
+
+  .divider-line {
+    width: 100%;
+    height: 1px;
+    background: #C9C9C9;
+    margin: 20px 0;
+  }
+  
