@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="./Assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./Assets/css/login.css">
-    <link rel="stylesheet" href="./Assets/css/styles.css">
+    <link rel="stylesheet" href="./../css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <div id="headerContainer"></div>
@@ -43,7 +43,7 @@
     <div id="container">
         <div class="login-card">
             <div id="left">
-                <img src="./Assets/img/uaem.png" style="width: 50%;" />
+                <img src="img/uaem.png" style="width: 50%;" />
                 <span>Departamento de Formación Docente</span>
             </div>
             <div id="right">
@@ -95,10 +95,10 @@
             
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
-                showPasswordIcon.src = 'img/visible.png'; //  ojo tachado
+                showPasswordIcon.src = './Assets/img/visible.png'; //  ojo tachado
             } else {
                 passwordInput.type = 'password';
-                showPasswordIcon.src = 'img/invisible.png'; // ojo visible
+                showPasswordIcon.src = './Assets/img/invisible.png'; // ojo visible
             }
         }
     </script>

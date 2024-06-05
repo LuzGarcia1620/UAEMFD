@@ -14,13 +14,13 @@
     <div class="row">
       <!-- Navegación Vertical -->
       <div class="col-lg-2">
-        <ul class="list-unstyled vertical-nav">
-          <li><a href="perfil.html" class="btn  btn-block my-1 menu">Perfil</a></li>
-          <li><a href="actividadformativa.html" class="btn btn-primary btn-block my-1 menu">Actividad Formativa</a></li>
-          <li><a href="usuarios.html" class="btn btn-primary btn-block my-1 menu">Usuarios</a></li>
-          <li><a href="consultas.html" class="btn btn-primary btn-block my-1 menu">Consultas</a></li>
-          <li><a href="asistencia.html" class="btn btn-primary btn-block my-1 menu">Asistencia</a></li>
-          <li><a href="salir.html" class="btn btn-primary btn-block my-1 menu">Salir</a></li>
+      <ul class="list-unstyled vertical-nav">
+          <li><a href="perfil.php" class="btn btn-block my-1 menu">Perfil</a></li>
+          <li><a href="actividadformativa.php" class="btn btn-primary btn-block my-1 menu">Actividad Formativa</a></li>
+          <li><a href="usuarios.php" class="btn btn-primary btn-block my-1 menu">Usuarios</a></li>
+          <li><a href="consultas.php" class="btn btn-primary btn-block my-1 menu">Consultas</a></li>
+          <li><a href="asistencia.php" class="btn btn-primary btn-block my-1 menu">Asistencia</a></li>
+          <li><a href="salir.php" class="btn btn-primary btn-block my-1 menu">Salir</a></li>
         </ul>
       </div>
       <!-- Contenido Principal -->
