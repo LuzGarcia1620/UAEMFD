@@ -1,0 +1,36 @@
+.containercons{
+    justify-content: center;
+    margin-bottom: 50%;
+}
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .btn-group button {
+            border: 1px solid #000;
+            border-bottom: none;
+            background-color: white;
+            color: black;
+            padding: 10px 24px;
+            cursor: pointer;
+        }
+        .btn-group button.active {
+            background-color: #003366;
+            color: white;
+        }
+        .btn-group .divider {
+            flex-grow: 1;
+            height: 2px;
+            background-color: black;
+            margin-top: 10px;
+        }
+        .input-container {
+            display: none;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .input-container.active {
+            display: flex;
+        }
