@@ -10,6 +10,11 @@
 </head>
 
 <body>
+    <?php
+    include_once("conexion.php");
+    CConexion::conexionBD();
+    ?>
+
     <div id="headerContainer"></div>
     <!-- NavBAR -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">

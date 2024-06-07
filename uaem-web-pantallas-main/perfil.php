@@ -11,6 +11,12 @@
 </head>
 
 <body>
+
+    <?php
+    include_once("conexion.php");
+    CConexion::conexionBD();
+    ?>
+
     <div id="headerContainer"></div>
     <div class="container-fluid">
         <div class="row">
@@ -51,15 +57,17 @@
                                 <input type="email" class="form-control" id="correo" value="Beatrize@uaem.mx"
                                     readonly />
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="contraseña">Contraseña:</label>
                                 <div class="input-group">
-                                    <input type="password" class="form-control" id="contraseña" value="asd123" readonly />
+                                    <input type="password" class="form-control" id="contraseña" value="asd123"
+                                        readonly />
                                     <div class="input-group-append">
                                         <span class="input-group-text" onclick="togglePassword('contraseña', this)">
                                             <i class="fa fa-eye"></i>
-                                            <img src="http://localhost/uaem/UAEMFD/uaem-web-pantallas-main/Assets/img/visibilidad.png" alt="visible" style="width: 20px; height: 20px; margin-left: 5px;">
+                                            <img src="http://localhost/uaem/UAEMFD/uaem-web-pantallas-main/Assets/img/visibilidad.png"
+                                                alt="visible" style="width: 20px; height: 20px; margin-left: 5px;">
                                         </span>
                                     </div>
                                 </div>
@@ -70,9 +78,12 @@
                                     <div class="input-group">
                                         <input type="password" class="form-control" id="newPassword" />
                                         <div class="input-group-append">
-                                            <span class="input-group-text" onclick="togglePassword('newPassword', this)">
+                                            <span class="input-group-text"
+                                                onclick="togglePassword('newPassword', this)">
                                                 <i class="fa fa-eye"></i>
-                                                <img src="http://localhost/uaem/UAEMFD/uaem-web-pantallas-main/Assets/img/visibilidad.png" alt="Nueva Contraseña Icono" style="width: 20px; height: 20px; margin-left: 5px;">
+                                                <img src="http://localhost/uaem/UAEMFD/uaem-web-pantallas-main/Assets/img/visibilidad.png"
+                                                    alt="Nueva Contraseña Icono"
+                                                    style="width: 20px; height: 20px; margin-left: 5px;">
                                             </span>
                                         </div>
                                     </div>
@@ -82,9 +93,12 @@
                                     <div class="input-group">
                                         <input type="password" class="form-control" id="repeatPassword" />
                                         <div class="input-group-append">
-                                            <span class="input-group-text" onclick="togglePassword('repeatPassword', this)">
+                                            <span class="input-group-text"
+                                                onclick="togglePassword('repeatPassword', this)">
                                                 <i class="fa fa-eye"></i>
-                                                <img src="http://localhost/uaem/UAEMFD/uaem-web-pantallas-main/Assets/img/visibilidad.png" alt="Confirmar Contraseña Icono" style="width: 20px; height: 20px; margin-left: 5px;">
+                                                <img src="http://localhost/uaem/UAEMFD/uaem-web-pantallas-main/Assets/img/visibilidad.png"
+                                                    alt="Confirmar Contraseña Icono"
+                                                    style="width: 20px; height: 20px; margin-left: 5px;">
                                             </span>
                                         </div>
                                     </div>
@@ -133,7 +147,7 @@
         .then((data) => {
             document.getElementById("footer").innerHTML = data;
         });
-</script>
+    </script>
 
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

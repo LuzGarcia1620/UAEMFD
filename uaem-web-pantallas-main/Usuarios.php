@@ -6,7 +6,7 @@
     <title>Perfil de Usuario</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
     <link rel="stylesheet" href="./Assets/css/usuarios.css" />
-    <link rel="stylesheet" href="Assets/css/styles.css" />
+    <link rel="stylesheet" href="./Assets/css/styles.css" />
 </head>
 
 <body>
@@ -26,10 +26,10 @@
             </div>
 
             <!-- Contenido Principal -->
-            <div class="col-lg-10">
+            <div class="col-lg-10 min mv-10">
                 <br>
                 <div class="botones">
-                    <div class="titulo">Actividades</div>
+                    <div class="titulo">Usuarios</div>
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="group">
                             <svg class="icon" aria-hidden="true" viewBox="0 0 24 24">

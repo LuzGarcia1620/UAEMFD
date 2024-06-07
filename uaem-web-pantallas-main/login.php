@@ -105,10 +105,10 @@
 
         if (passwordInput.type === 'password') {
             passwordInput.type = 'text';
-            showPasswordIcon.src = 'img/visible.png'; //  ojo tachado
+            showPasswordIcon.src = './Assets/img/visible.png'; //  ojo tachado
         } else {
             passwordInput.type = 'password';
-            showPasswordIcon.src = 'http://localhost/uaem/UAEMFD/uaem-web-pantallas-main/Assets/img/visibilidad.png'; // ojo visible
+            showPasswordIcon.src = './Assets/img/visible.png'; // ojo visible
         }
     }
 
