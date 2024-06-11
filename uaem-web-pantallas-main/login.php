@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,12 +8,10 @@
     <link rel="stylesheet" href="./Assets/css/login.css">
     <link rel="stylesheet" href="./Assets/css/styles.css">
 </head>
-
 <body>
     <div id="headerContainer"></div>
-
-    <!-- NavBAR -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <!-- Navbar content -->
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,7 +39,6 @@
             </div>
         </div>
     </nav>
-
     <div id="container">
         <div class="login-card">
             <div id="left">
@@ -50,23 +46,30 @@
                 <span>Departamento de Formación Docente</span>
             </div>
             <div id="right">
-                <h1>¡Bienvenido!</h1>
-                <p>Inicia sesión con tu cuenta</p>
-                <input class="Login" type="text" name="usuario" id="usuario" placeholder="Usuario" />
-                <div class="input-group">
-                    <input class="Login" type="password" name="password" id="password" placeholder="Contraseña" />
-                    <button id="show_password" class="btn btn-primary" type="button" onclick="mostrarPassword()">
-                        <img class="showPassword2" src="./Assets/img/invisible.png" width="30px" />
-                    </button>
-                </div>
-                <button id="btn_login" onclick="validar()">Iniciar Sesión</button>
+                <form action="sesion.php" method="POST">
+                    <h1>¡Bienvenido!</h1>
+                    <p>Inicia sesión</p>
+                    <div class="form-floating mb-3 input-container">
+                        <input type="text" class="form-control input-thin" id="usuario" name="usuario" placeholder="Usuario">
+                        <label for="usuario">Usuario</label>
+                    </div>
+                    <div class="form-floating mb-3 input-container position-relative">
+                        <input type="password" class="form-control input-thin" id="password" name="password" placeholder="Contraseña">
+                        <label for="password">Contraseña</label>
+                        <button id="show_password" class="btn password-btn" type="button" onclick="mostrarPassword()">
+                            <img id="password_icon" src="./Assets/img/visibilidad.png" width="20px" />
+                        </button>
+                    </div>
+                    <button id="btn_login" class="btn" type="submit">Iniciar Sesión</button>
+                </form>
             </div>
         </div>
-    </div>
-
-    <!-- FOOTER -->
+    </div> 
+    
+    <!-- Footer content -->
+    </footer>
     <footer class="bg-custom-footer py-2">
-        <div class="container">
+    <div class="container">
             <div class="row">
                 <div
                     class="col-12 col-md-6 d-flex flex-column align-items-center align-items-md-center mb-2 mb-md-0 follow-us">
@@ -80,48 +83,25 @@
                                 src="./Assets/img/youtube.png" alt="YouTube" class="img-fluid"></a>
                     </div>
                 </div>
-                <div class="col-12 col-md-6 text-center text-md-center">
-                    <div class="mb-2">
-                        <h5 class="mb-1">Universidad Autónoma del Estado de Morelos</h5>
-                        <p class="mb-3">Departamento de Formación Docente</p>
-                        <p class="mb-1"><img src="./Assets/img/mapas-y-banderas.png" alt="ubicacion" class="img-fluid"
-                                style="height: 17px;"> Av. Universidad 1001, Chamilpa, Cuernavaca, Morelos, México</p>
-                        <p class="mb-1"><img src="./Assets/img/llamada-telefonica.png" alt="telefono" class="img-fluid"
-                                style="height: 17px;"> (777) 329 70 00 Ext. 3249, 3352 y 3935</p>
-                        <p class="mb-1"><img src="./Assets/img/correo-electronico.png" alt="correo" class="img-fluid"
-                                style="height: 17px;"> eval_docente@uaem.mx</p>
-                    </div>
+                <div class="col-12 col-md-6 text-center text-md-start">
+                    <p class="mb-0">Universidad Autónoma del Estado de Morelos</p>
+                    <p class="mb-0">Av. Universidad 1001, Col. Chamilpa, C.P. 62209, Cuernavaca, Morelos, México</p>
                 </div>
             </div>
         </div>
     </footer>
 
-    <script src="js/login.js"></script>
     <script>
-    function mostrarPassword() {
-        const passwordInput = document.getElementById('password');
-        const showPasswordButton = document.getElementById('show_password');
-        const showPasswordIcon = showPasswordButton.querySelector('img');
+        function mostrarPassword() {
+            const passwordInput = document.getElementById('password');
+            const passwordIcon = document.getElementById('password_icon');
+            const isPasswordVisible = passwordInput.type === 'password';
 
-        if (passwordInput.type === 'password') {
-            passwordInput.type = 'text';
-            showPasswordIcon.src = './Assets/img/visible.png'; //  ojo tachado
-        } else {
-            passwordInput.type = 'password';
-            showPasswordIcon.src = './Assets/img/visible.png'; // ojo visible
+            passwordInput.type = isPasswordVisible ? 'text' : 'password';
+            passwordIcon.src = isPasswordVisible ? './Assets/img/invisible.png' : './Assets/img/visibilidad.png';
         }
-    }
-
-    fetch("http://localhost/uaem/UAEMFD/uaem-web-pantallas-main/templates/header.html")
-        .then((response) => response.text())
-        .then((data) => {
-            document.getElementById("headerContainer").innerHTML = data;
-        });
-
     </script>
-
-    
-
+    <script src="./Assets/js/bootstrap.bundle.min.js"></script>
+    <script src="./Assets/js/login.js"></script>
 </body>
-
 </html>

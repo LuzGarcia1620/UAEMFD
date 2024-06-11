@@ -13,8 +13,8 @@
 <body>
 
     <?php
-    include_once("conexion.php");
-    CConexion::conexionBD();
+    session_start();
+    $user=$_SESSION['usuario'];
     ?>
 
     <div id="headerContainer"></div>
@@ -63,7 +63,8 @@
                                 <div class="input-group">
                                     <input type="password" class="form-control" id="contraseña" value="asd123"
                                         readonly />
-                                    <div class="input-group-append">
+                                    <div class="input-grou
+                                    p-append">
                                         <span class="input-group-text" onclick="togglePassword('contraseña', this)">
                                             <i class="fa fa-eye"></i>
                                             <img src="http://localhost/uaem/UAEMFD/uaem-web-pantallas-main/Assets/img/visibilidad.png"

@@ -10,9 +10,11 @@
 </head>
 
 <body>
-    <?php
+<?php
     include_once("conexion.php");
-    CConexion::conexionBD();
+    $conexion = new CConexion();
+    $conexion->conexionBD();
+    
     ?>
 
     <div id="headerContainer"></div>

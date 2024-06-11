@@ -14,6 +14,13 @@
 </head>
 
 <body>
+
+    <?php
+    include_once("conexion.php");
+    $conexion = new CConexion();
+    $conexion->conexionBD();
+    
+    ?>
     <div id="headerContainer"></div>
     <div class="container-fluid d-flex flex-column min-vh-100">
         <div class="row flex-grow-1">
@@ -22,7 +29,8 @@
                 <div class="conte">
                     <ul class="list-unstyled vertical-nav">
                         <li><a href="perfil.php" class="btn btn-block my-1 menu">Perfil</a></li>
-                        <li><a href="actividadformativa.php" class="btn btn-primary btn-block my-1 menu">Actividad Formativa</a></li>
+                        <li><a href="actividadformativa.php" class="btn btn-primary btn-block my-1 menu">Actividad
+                                Formativa</a></li>
                         <li><a href="usuarios.php" class="btn btn-primary btn-block my-1 menu">Usuarios</a></li>
                         <li><a href="consultas.php" class="btn btn-primary btn-block my-1 menu">Consultas</a></li>
                         <li><a href="asistencia.php" class="btn btn-primary btn-block my-1 menu">Asistencia</a></li>
@@ -167,53 +175,53 @@
     </div>
 
     <script>
-        function openModal(modalId) {
-            const modal = document.getElementById(modalId);
-            modal.style.display = "block";
-        }
+    function openModal(modalId) {
+        const modal = document.getElementById(modalId);
+        modal.style.display = "block";
+    }
 
-        function closeModal(modalId) {
-            const modal = document.getElementById(modalId);
-            modal.style.display = "none";
-        }
+    function closeModal(modalId) {
+        const modal = document.getElementById(modalId);
+        modal.style.display = "none";
+    }
 
-        fetch("./templates/header.html")
-            .then((response) => response.text())
-            .then((data) => {
-                document.getElementById("headerContainer").innerHTML = data;
-            });
-        fetch("./templates/menu.html")
-            .then((response) => response.text())
-            .then((data) => {
-                document.getElementById("menuContainer").innerHTML = data;
-            });
-        fetch("./templates/footer.html")
-            .then((response) => response.text())
-            .then((data) => {
-                document.getElementById("footer").innerHTML = data;
-            });
-
-        // Función para cerrar el modal
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = "none";
-        }
-
-        // SweetAlert para eliminar la actividad al hacer clic en la imagen
-        document.getElementById('deleteActivityImage').addEventListener('click', function () {
-            Swal.fire({
-                title: "¿Está seguro que desea eliminar",
-                text: "No podrá deshacer esta acción.",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonText: "Sí, eliminar",
-                cancelButtonText: "Cancelar",
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Lógica para eliminar la actividad
-                    Swal.fire("Eliminado!", "La actividad ha sido eliminada.", "success");
-                }
-            });
+    fetch("./templates/header.html")
+        .then((response) => response.text())
+        .then((data) => {
+            document.getElementById("headerContainer").innerHTML = data;
         });
+    fetch("./templates/menu.html")
+        .then((response) => response.text())
+        .then((data) => {
+            document.getElementById("menuContainer").innerHTML = data;
+        });
+    fetch("./templates/footer.html")
+        .then((response) => response.text())
+        .then((data) => {
+            document.getElementById("footer").innerHTML = data;
+        });
+
+    // Función para cerrar el modal
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = "none";
+    }
+
+    // SweetAlert para eliminar la actividad al hacer clic en la imagen
+    document.getElementById('deleteActivityImage').addEventListener('click', function() {
+        Swal.fire({
+            title: "¿Está seguro que desea eliminar",
+            text: "No podrá deshacer esta acción.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Sí, eliminar",
+            cancelButtonText: "Cancelar",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Lógica para eliminar la actividad
+                Swal.fire("Eliminado!", "La actividad ha sido eliminada.", "success");
+            }
+        });
+    });
     </script>
 </body>
 

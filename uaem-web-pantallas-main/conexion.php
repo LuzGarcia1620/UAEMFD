@@ -1,19 +1,22 @@
 <?php
 class CConexion {
+    private $conn;
+
     public function conexionBD(){
         $host = "localhost";
         $dbname = "postgres";
         $username = "postgres";
-        $password = "root";  // Corrección del nombre de la variable
+        $password = "root"; 
 
         try {
-            $conn = new PDO("pgsql:host=$host;dbname=$dbname", $username, $password);
-            echo "Conexión establecida";
+            $this->conn = new PDO("pgsql:host=$host;dbname=$dbname", $username, $password);
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $exp) {
-            echo ("No se conectó a la base de datos: $exp");
+            echo "No se conectó a la base de datos: " . $exp->getMessage();
+            exit;
         }
 
-        return $conn;
+        return $this->conn;
     }
 }
 ?>

@@ -11,6 +11,14 @@
 </head>
 
 <body>
+
+<?php
+    include_once("conexion.php");
+    $conexion = new CConexion();
+    $conexion->conexionBD();
+    
+    ?>
+    
     <div id="headerContainer"></div>
     <div class="container-fluid">
         <div class="row">

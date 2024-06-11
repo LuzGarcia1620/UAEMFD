@@ -32,7 +32,7 @@ body, html {
     align-items: center;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
-    padding: 20px; 
+    padding: 20px;
 }
 
 #left img {
@@ -46,12 +46,14 @@ body, html {
 }
 
 #right {
-    background-color: white; 
+    background-color: white;
     width: 50%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
     padding: 20px;
 }
 
@@ -60,30 +62,27 @@ body, html {
     text-align: center;
 }
 
-.input-group {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    margin-bottom: 20px;
+.input-container {
+    width: 80%; /* Ajusta el porcentaje según sea necesario */
+    position: relative;
 }
 
-.Login {
-    font-size: 18px;
+/* Ajustar los inputs a un tamaño más delgado */
+.input-thin {
+    padding: 8px; /* Ajusta el padding según sea necesario */
+    font-size: 0.6rem; /* Ajusta el tamaño de la fuente */
+    height: 30px; /* Ajusta la altura */
+}
+
+.btn {
+    width: 80%; /* Ajusta el porcentaje según sea necesario */
     padding: 10px;
-    width: 80%; 
-    box-sizing: border-box;
-    margin-bottom: 25px; /* Separación entre inputs */
-}
-
-#show_password {
-    background-color: #0056b3; 
+    color: white;
     border: none;
+    border-radius: 4px;
+    font-size: 1rem;
     cursor: pointer;
-    padding: 10px;
-    height: 51px;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
+    transition: background-color 0.3s;
 }
 
 #btn_login {
@@ -97,7 +96,37 @@ body, html {
     width: 200px;
 }
 
-.showPassword2 {
-    display: block;
-    margin: auto;
+.btn:hover {
+    background-color: #003399;
+}
+
+/* Estilos para el botón de mostrar/ocultar contraseña */
+.password-btn {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    width: 50px; /* Ajusta el tamaño del botón */
+    height: 50px; /* Ajusta el tamaño del botón */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.password-btn img {
+    width: 100%; /* Asegura que la imagen ocupe todo el botón */
+    height: auto;
+}
+
+footer {
+    background-color: #001660;
+    color: white;
+}
+
+footer p {
+    margin: 0;
 }
