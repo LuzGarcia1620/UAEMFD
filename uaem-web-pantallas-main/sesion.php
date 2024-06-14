@@ -23,6 +23,7 @@ if ($cantidad > 0) {
     header('Location: perfil.php');
     exit;
 } else {
-    echo "Datos incorrectos";
+    header('Location: login.php?error=1');
+    exit;
 }
 ?>

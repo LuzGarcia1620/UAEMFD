@@ -63,11 +63,10 @@
                                 <div class="input-group">
                                     <input type="password" class="form-control" id="contraseña" value="asd123"
                                         readonly />
-                                    <div class="input-grou
-                                    p-append">
+                                    <div class="input-group-append">
                                         <span class="input-group-text" onclick="togglePassword('contraseña', this)">
                                             <i class="fa fa-eye"></i>
-                                            <img src="http://localhost/uaem/UAEMFD/uaem-web-pantallas-main/Assets/img/visibilidad.png"
+                                            <img src="./Assets/img/visibilidad.png"
                                                 alt="visible" style="width: 20px; height: 20px; margin-left: 5px;">
                                         </span>
                                     </div>
@@ -82,7 +81,7 @@
                                             <span class="input-group-text"
                                                 onclick="togglePassword('newPassword', this)">
                                                 <i class="fa fa-eye"></i>
-                                                <img src="http://localhost/uaem/UAEMFD/uaem-web-pantallas-main/Assets/img/visibilidad.png"
+                                                <img src="./Assets/img/visibilidad.png"
                                                     alt="Nueva Contraseña Icono"
                                                     style="width: 20px; height: 20px; margin-left: 5px;">
                                             </span>
@@ -97,7 +96,7 @@
                                             <span class="input-group-text"
                                                 onclick="togglePassword('repeatPassword', this)">
                                                 <i class="fa fa-eye"></i>
-                                                <img src="http://localhost/uaem/UAEMFD/uaem-web-pantallas-main/Assets/img/visibilidad.png"
+                                                <img src="./Assets/img/visibilidad.png"
                                                     alt="Confirmar Contraseña Icono"
                                                     style="width: 20px; height: 20px; margin-left: 5px;">
                                             </span>
@@ -126,10 +125,10 @@
 
         if (input.type === "password") {
             input.type = "text";
-            eyeIcon.src = "http://localhost/uaem/UAEMFD/uaem-web-pantallas-main/Assets/img/invisible.png";
+            eyeIcon.src = "./Assets/img/invisible.png";
         } else {
             input.type = "password";
-            eyeIcon.src = "http://localhost/uaem/UAEMFD/uaem-web-pantallas-main/Assets/img/visibilidad.png";
+            eyeIcon.src = "./Assets/img/visibilidad.png";
         }
     }
 

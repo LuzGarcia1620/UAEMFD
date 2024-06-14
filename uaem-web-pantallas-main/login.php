@@ -1,3 +1,27 @@
+<?php
+    session_start();
+    if (!isset($_SESSION['user_id'])) {
+        header("Location: login.php");
+        exit();
+    }
+    
+    try {
+        $pdo = new PDO("pgsql:host=localhost;dbname=nombre_basededatos", "usuario", "contraseña");
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+        $sql = "SELECT u.nombre, u.usuario, r.nombre AS rol, u.correo, u.password 
+                FROM USUARIO u
+                JOIN ROL r ON u.idRol = r.id
+                WHERE u.idUsuario = :idUsuario";
+    
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(['idUsuario' => $_SESSION['user_id']]);
+        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        echo "Error de conexión: " . $e->getMessage();
+    }
+    ?>
+    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +31,7 @@
     <link rel="stylesheet" href="./Assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="./Assets/css/login.css">
     <link rel="stylesheet" href="./Assets/css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <div id="headerContainer"></div>
@@ -65,7 +90,7 @@
             </div>
         </div>
     </div> 
-    
+
     <!-- Footer content -->
     </footer>
     <footer class="bg-custom-footer py-2">
@@ -99,6 +124,16 @@
 
             passwordInput.type = isPasswordVisible ? 'text' : 'password';
             passwordIcon.src = isPasswordVisible ? './Assets/img/invisible.png' : './Assets/img/visibilidad.png';
+        }
+
+        // Mostrar alerta de error si se detecta el parámetro "error" en la URL
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('error')) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Usuario o contraseña incorrectos.',
+            });
         }
     </script>
     <script src="./Assets/js/bootstrap.bundle.min.js"></script>
