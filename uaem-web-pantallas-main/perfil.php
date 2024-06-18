@@ -22,15 +22,17 @@
         <div class="row">
             <!-- Navegación Vertical -->
             <div class="col-lg-2">
-                <ul class="list-unstyled vertical-nav">
+                <div class="navback">
+                 <ul class="list-unstyled vertical-nav">
                     <li><a href="perfil.php" class="btn btn-block menu">Perfil</a></li>
-                    <li><a href="actividadformativa.php" class="btn btn-primary btn-block my-1 menu">Actividad
-                            Formativa</a></li>
+                    <li><a href="actividadformativa.php" class="btn btn-primary btn-block my-1 menu">Actividad Formativa</a></li>
                     <li><a href="usuarios.php" class="btn btn-primary btn-block my-1 menu">Usuarios</a></li>
                     <li><a href="consultas.php" class="btn btn-primary btn-block my-1 menu">Consultas</a></li>
                     <li><a href="asistencia.php" class="btn btn-primary btn-block my-1 menu">Asistencia</a></li>
                     <li><a href="salir.php" class="btn btn-primary btn-block my-1 menu">Salir</a></li>
-                </ul>
+                </ul>   
+                </div>
+                
             </div>
             <!-- Contenido Principal -->
             <div class="col-lg-10 main-content d-flex justify-content-center align-items-center">

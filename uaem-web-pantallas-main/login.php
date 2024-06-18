@@ -1,27 +1,32 @@
 <?php
-    session_start();
-    if (!isset($_SESSION['user_id'])) {
-        header("Location: login.php");
-        exit();
-    }
-    
+session_start();
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
         $pdo = new PDO("pgsql:host=localhost;dbname=nombre_basededatos", "usuario", "contraseña");
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    
-        $sql = "SELECT u.nombre, u.usuario, r.nombre AS rol, u.correo, u.password 
-                FROM USUARIO u
-                JOIN ROL r ON u.idRol = r.id
-                WHERE u.idUsuario = :idUsuario";
-    
+
+        $sql = "SELECT idUsuario, password, idRol FROM USUARIO WHERE usuario = :usuario";
         $stmt = $pdo->prepare($sql);
-        $stmt->execute(['idUsuario' => $_SESSION['user_id']]);
-        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt->execute(['usuario' => $_POST['usuario']]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($user && password_verify($_POST['password'], $user['password'])) {
+            $_SESSION['user_id'] = $user['idUsuario'];
+            $_SESSION['role'] = $user['idRol'];
+            header("Location: sesion.php");
+            exit();
+        } else {
+            header("Location: login.php?error=1");
+            exit();
+        }
     } catch (PDOException $e) {
-        echo "Error de conexión: " . $e->getMessage();
+        header("Location: login.php?error=conexion");
+        exit();
     }
-    ?>
-    
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -71,7 +76,7 @@
                 <span>Departamento de Formación Docente</span>
             </div>
             <div id="right">
-                <form action="sesion.php" method="POST">
+                <form id="loginForm" method="POST">
                     <h1>¡Bienvenido!</h1>
                     <p>Inicia sesión</p>
                     <div class="form-floating mb-3 input-container">
@@ -89,32 +94,45 @@
                 </form>
             </div>
         </div>
-    </div> 
+    </div>
 
     <!-- Footer content -->
-    </footer>
-    <footer class="bg-custom-footer py-2">
+    <footer class="sm-custom-footer py-1">
     <div class="container">
-            <div class="row">
-                <div
-                    class="col-12 col-md-6 d-flex flex-column align-items-center align-items-md-center mb-2 mb-md-0 follow-us">
-                    <h5 class="text-center text-md-end mb-2">¡Síguenos en nuestras redes sociales!</h5>
-                    <div class="d-flex justify-content-center justify-content-md-end follow-us">
-                        <a href="mailto:eval_docente@uaem.mx" class="text-white me-2"><img src="./Assets/img/correo.png"
-                                alt="Correo" class="img-fluid"></a>
-                        <a href="https://www.facebook.com/uaemformaciondocente" class="text-white me-2"><img
-                                src="./Assets/img/facebook.png" alt="Facebook" class="img-fluid"></a>
-                        <a href="https://www.youtube.com/channel/UCvc3SSAArfY-DsWXXZ4mwhg" class="text-white"><img
-                                src="./Assets/img/youtube.png" alt="YouTube" class="img-fluid"></a>
-                    </div>
+        <div class="row">
+            <div class="col-12 col-md-6 d-flex flex-column align-items-start mb-2 mb-md-0 follow-us">
+                <h5 class="text-center text-md-start mb-1">¡Síguenos en nuestras redes sociales!</h5>
+                <div class="d-flex justify-content-start follow-us">
+                    <a href="mailto:eval_docente@uaem.mx" class="text-white me-2"><img src="./Assets/img/correo.png" alt="Correo" class="img-fluid"></a>
+                    <a href="https://www.facebook.com/uaemformaciondocente" class="text-white me-2"><img src="./Assets/img/facebook.png" alt="Facebook" class="img-fluid"></a>
+                    <a href="https://www.youtube.com/channel/UCvc3SSAArfY-DsWXXZ4mwhg" class="text-white"><img src="./Assets/img/youtube.png" alt="YouTube" class="img-fluid"></a>
                 </div>
-                <div class="col-12 col-md-6 text-center text-md-start">
-                    <p class="mb-0">Universidad Autónoma del Estado de Morelos</p>
-                    <p class="mb-0">Av. Universidad 1001, Col. Chamilpa, C.P. 62209, Cuernavaca, Morelos, México</p>
+            </div>
+            <div class="col-12 col-md-6 text-center text-md-start">
+                <div>
+                    <h5 class="mb-1">Universidad Autónoma del Estado de Morelos</h5>
+                    <p class="mb-1">Departamento de Formación Docente</p>
+                    <p class="mb-1"><img src="./Assets/img/mapas-y-banderas.png" alt="ubicacion" class="img-fluid" style="height: 10px;"> Av. Universidad 1001, Chamilpa, Cuernavaca, Morelos, México</p>
+                    <p class="mb-1"><img src="./Assets/img/llamada-telefonica.png" alt="telefono" class="img-fluid" style="height: 10px;"> (777) 329 70 00 Ext. 3249, 3352 y 3935</p>
+                    <p class="mb-1"><img src="./Assets/img/correo-electronico.png" alt="correo" class="img-fluid" style="height: 10px;"> eval_docente@uaem.mx</p>
                 </div>
             </div>
         </div>
-    </footer>
+    </div>
+</footer>
+
+    <script>
+        fetch('./templates/header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('headerContainer').innerHTML = data;
+            });
+        fetch('./templates/footerPublico.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footerContainer').innerHTML = data;
+            });
+    </script>
 
     <script>
         function mostrarPassword() {
@@ -126,15 +144,50 @@
             passwordIcon.src = isPasswordVisible ? './Assets/img/invisible.png' : './Assets/img/visibilidad.png';
         }
 
-        // Mostrar alerta de error si se detecta el parámetro "error" en la URL
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.has('error')) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Usuario o contraseña incorrectos.',
-            });
-        }
+        // Evitar la alerta en la carga de la página
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('error') === '1') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Usuario o contraseña incorrectos.',
+                });
+            }
+        });
+
+        // Enviar el formulario usando JavaScript
+        document.getElementById('loginForm').addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const form = event.target;
+            const formData = new FormData(form);
+            const request = new XMLHttpRequest();
+
+            request.open('POST', form.action, true);
+            request.onload = function () {
+                if (request.status === 200) {
+                    const responseURL = request.responseURL;
+                    const urlParams = new URLSearchParams(responseURL.split('?')[1]);
+                    if (urlParams.get('error') === '1') {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Usuario o contraseña incorrectos.',
+                        });
+                    } else {
+                        window.location.href = 'perfil.php';
+                    }
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Hubo un problema al procesar la solicitud.',
+                    });
+                }
+            };
+            request.send(formData);
+        });
     </script>
     <script src="./Assets/js/bootstrap.bundle.min.js"></script>
     <script src="./Assets/js/login.js"></script>

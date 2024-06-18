@@ -1,0 +1,61 @@
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-left: 30px;
+}
+
+.card {
+    max-width: 1000px; /* Aumenta el ancho máximo para acomodar una imagen más grande */
+    width: 100%;
+    margin-bottom: 50px;
+}
+
+.card-title {
+    margin-bottom: 10px;
+    font-size: 1.2rem; /* Aumenta el tamaño de la fuente para mejor legibilidad */
+    font-weight: bold;
+}
+
+.regresar {
+    width: 155px; /* Ancho fijo en pantallas más grandes */
+    height: 37px;
+    background: #41538F;
+    border-radius: 13px;
+    color: white;
+    margin-top: 30px;
+    margin-left: 30px;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    line-height: 37px;
+    transition: width 0.3s, margin-left 0.3s; /* Animación suave en los cambios */
+}
+
+/* Ajusta el ancho del botón en pantallas más pequeñas */
+@media (max-width: 576px) {
+    .regresar {
+        width: 100%; /* Botón ocupa todo el ancho */
+        margin-left: 0; /* Centra el botón */
+        text-align: center;
+    }
+}
+
+
+.regresar:hover {
+    color: rgb(245, 230, 212);
+    text-decoration: none;
+}
+
+
+.img-fluid {
+    max-height: 100%;
+    object-fit: cover;
+    height: auto; /* Mantén la altura automática para que la imagen se ajuste proporcionalmente */
+}
+
+.btn-primary {
+    padding: 10px 20px; /* Ajusta el padding para hacer el botón más pequeño */
+    font-size: 0.9rem; /* Ajusta el tamaño de la fuente para que el botón sea más pequeño */
+    margin-top: 60px;
+}

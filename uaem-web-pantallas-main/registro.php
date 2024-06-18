@@ -5,12 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./Assets/css/styles.css" />
-    <link rel="stylesheet" href="./Assets/css/formaciondocente.css" />
+    <link rel="stylesheet" href="./Assets/css/registro.css" />
     <title>Formación Docente</title>
 </head>
 
 <body>
-
     <div id="headerContainer"></div>
     <!-- NavBAR -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -22,60 +21,40 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="./index.html">Inicio</a></li>
+                        <a class="nav-link" href="./index.html">Inicio</a>
+                    </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./evaluaciondocente.html">Evaluación Docente</a></li>
+                        <a class="nav-link" href="./evaluaciondocente.php">Evaluación Docente</a>
+                    </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./formaciondocente.php">Formación Docente</a></li>
+                        <a class="nav-link" href="./formaciondocente.php">Formación Docente</a>
+                    </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./documentosconsulta.html">Documentos de Consulta</a></li>
+                        <a class="nav-link" href="./documentosconsulta.php">Documentos de Consulta</a>
+                    </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./contacto.html">Contacto</a></li>
+                        <a class="nav-link" href="./contacto.php">Contacto</a>
+                    </li>
                 </ul>
-                <a class="navbar-brand ms-auto" href="./index.html">UAEM</a>
+                <a class="navbar-brand ms-auto" href="./index.php">UAEM</a>
             </div>
         </div>
     </nav>
     <!-- Fin de la NavBar -->
 
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body text-center">
-                    <h6 class="card-title">La Universidad Autónoma del Estado de Morelos, la Secretaría Académica a través de la Dirección General de Educación Superior</h6>
-                    <div class="line"></div>
-                        <p>Invita al </p>
-                        <h5 class="card-text">Desarrollo de actividades dentro del aula</h5>
-                        <p>Dirigido al Personal Académico de la UAEM</p>
-                        <a href="info.php" class="btn btn-primary">Ver más información</a>
-                    </div>
+    <!-- Botón de Regresar -->
+<a href="formaciondocente.php" class="regresar">Regresar</a>
+<br>
+ <div class="container d-flex justify-content-center align-items-center min-vh-100">
+        <div class="form-container p-4 shadow-sm rounded">
+            <form id="email-form">
+                <p class="form-title">Desarrollo de actividades dentro del aula</p>
+                <p class="form-sub-title">Ingrese su correo electrónico</p>
+                <div class="mb-3">
+                    <input type="email" class="form-control" id="email" placeholder="Correo electrónico" required>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body text-center">
-                    <h6 class="card-title">La Universidad Autónoma del Estado de Morelos, la Secretaría Académica a través de la Dirección General de Educación Superior</h6>
-                    <div class="line"></div>
-                        <p>Invita al</p>
-                        <h5 class="card-text">Desarrollo de actividades dentro del aula</h5>
-                        <p>Dirigido al Personal Académico de la UAEM</p>
-                        <a href="detalle2.html" class="btn btn-primary">Ver más información</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body text-center">
-                        <h6 class="card-title">La Universidad Autónoma del Estado de Morelos, la Secretaría Académica a través de la Dirección General de Educación Superior</h6>
-                        <div class="line"></div>
-                        <p>Invita al</p>
-                        <h5 class="card-text">Desarrollo de actividades dentro del aula</h5>
-                        <p>Dirigido al Personal Académico de la UAEM</p>
-                        <a href="detalle3.html" class="btn btn-primary">Ver más información</a>
-                    </div>
-                </div>
-            </div>
+                <button type="submit" class="btn btn-primary w-100">Continuar</button>
+            </form>
         </div>
     </div>
 
@@ -112,18 +91,7 @@
     </footer>
     <!-- Scripts -->
     <script src="./Assets/js/bootstrap.bundle.min.js"></script>
-    <script>
-    function activateLink(element) {
-        // Remove 'active' class from all nav links
-        var links = document.querySelectorAll('.nav-link');
-        links.forEach(function(link) {
-            link.classList.remove('active');
-        });
 
-        // Add 'active' class to the clicked nav link
-        element.classList.add('active');
-    }
-    </script>
     <script>
     fetch('./templates/header.html')
         .then(response => response.text())
@@ -135,7 +103,48 @@
         .then(data => {
             document.getElementById('footerContainer').innerHTML = data;
         });
+
+        document.getElementById('email-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const email = document.getElementById('email').value;
+    
+    fetch('validate_email.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email: email })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            Swal.fire({
+                title: 'Usuario Encontrado',
+                text: `Nombre: ${data.user.nombre} ${data.user.paterno} ${data.user.materno}\nCorreo: ${data.user.correo}`,
+                icon: 'success',
+                confirmButtonText: 'Aceptar'
+            });
+        } else {
+            Swal.fire({
+                title: 'No Encontrado',
+                text: 'No se encontraron sus datos.',
+                icon: 'error',
+                showCancelButton: true,
+                confirmButtonText: 'Registrar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'register.html';
+                }
+            });
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});
+
     </script>
+
+    
 
 </body>
 

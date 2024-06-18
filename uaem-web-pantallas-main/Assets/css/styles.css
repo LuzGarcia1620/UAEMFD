@@ -180,12 +180,47 @@ li a:hover {
   background-color: #dee0e5;
 }
 
-.footer {
-  background-color: rgb(24, 24, 150);
+/*footer/
+Estilo del footer más pequeño */
+.sm-custom-footer {
+  background: linear-gradient(90deg, #000000 20%, #3a5a96 80%);
   color: white;
-  text-align: center;
-  position: static ;
-  bottom: 0;
+  padding: 10px 0; /* Reduce el padding superior e inferior */
+  font-size: 0.9em; /* Reduce el tamaño de fuente para hacer el contenido más compacto */
+}
+
+/* Enlaces en el pie de página con color blanco y sin subrayado */
+.sm-custom-footer a {
+  color: white;
+  text-decoration: none;
+}
+
+/* Cambia el color del enlace al pasar el cursor sobre él */
+.sm-custom-footer a:hover {
+  color: #cccccc;
+}
+
+/* Ajusta la altura de las imágenes */
+.follow-us img {
+  height: 40px; /* Reduce la altura de las imágenes */
+  margin-right: 5px; /* Reduce el margen entre imágenes */
+  margin-top: 20px;
+}
+
+/* Ajusta la alineación del texto y las imágenes */
+.sm-custom-footer h5, .sm-custom-footer p {
+  margin: 5px 0; /* Reduce el margen superior e inferior */
+  font-size: 0.9em; /* Ajusta el tamaño de la fuente */
+}
+
+/* Alineación de las redes sociales a la izquierda */
+.follow-us {
+  justify-content: flex-start; /* Alinea a la izquierda */
+}
+
+.line {
   width: 100%;
-  height: 70px;
+  height: 1px;
+  margin-top: 20px;
+  border: 1px #696969 solid;
 }
