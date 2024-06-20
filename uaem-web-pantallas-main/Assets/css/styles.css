@@ -50,7 +50,6 @@ body {
 /* Enlaces en el pie de página con color blanco y sin subrayado */
 .bg-custom-footer a {
   color: white;
-
   text-decoration: none;
 }
 

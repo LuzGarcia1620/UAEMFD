@@ -1,76 +1,52 @@
 <?php
-    // PHP para la validación de correo electrónico
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        include('conexion.php');
-        $email = $_POST['email'] ?? '';
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    include('conexion.php');
+    $email = $_POST['email'] ?? '';
 
-        if (empty($email)) {
-            echo "<script>
-                    Swal.fire({
-                        title: 'Error',
-                        text: 'Correo electrónico no proporcionado',
-                        icon: 'error',
-                        confirmButtonText: 'Aceptar'
-                    }).then(() => {
-                        window.location.href = 'registro.php';
-                    });
-                </script>";
-            exit;
-        }
+    header('Content-Type: application/json');
+    $response = [];
 
-        $conexion = new CConexion();
-        $conn = $conexion->conexionBD();
-
-        try {
-            $stmt = $conn->prepare("SELECT * FROM USUARIO WHERE correo = :correo");
-            $stmt->bindParam(':correo', $email);
-            $stmt->execute();
-            $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-            if ($user) {
-                echo "<script>
-                        Swal.fire({
-                            title: 'Usuario Encontrado',
-                            text: `Nombre: {$user['nombre']} {$user['paterno']} {$user['materno']}\\nCorreo: {$user['correo']}`,
-                            icon: 'success',
-                            confirmButtonText: 'Aceptar'
-                        }).then(() => {
-                            window.location.href = 'formaciondocente.php';
-                        });
-                    </script>";
-            } else {
-                echo "<script>
-                        Swal.fire({
-                            title: 'No Encontrado',
-                            text: 'Usuario no encontrado',
-                            icon: 'error',
-                            showCancelButton: true,
-                            confirmButtonText: 'Registrar',
-                            cancelButtonText: 'Cancelar'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                window.location.href = 'register.html';
-                            } else {
-                                window.location.href = 'formaciondocente.php';
-                            }
-                        });
-                    </script>";
-            }
-        } catch (PDOException $e) {
-            echo "<script>
-                    Swal.fire({
-                        title: 'Error',
-                        text: 'Error al conectar con la base de datos',
-                        icon: 'error',
-                        confirmButtonText: 'Aceptar'
-                    }).then(() => {
-                        window.location.href = 'registro.php';
-                    });
-                </script>";
-        }
+    if (empty($email)) {
+        $response = [
+            'success' => false,
+            'message' => 'Correo electrónico no proporcionado'
+        ];
+        echo json_encode($response);
+        exit;
     }
-    ?>
-    
+
+    $conexion = new CConexion();
+    $conn = $conexion->conexionBD();
+
+    try {
+        $stmt = $conn->prepare("SELECT * FROM USUARIO WHERE correo = :correo");
+        $stmt->bindParam(':correo', $email);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($user) {
+            $response = [
+                'success' => true,
+                'user' => $user
+            ];
+        } else {
+            $response = [
+                'success' => false,
+                'message' => 'Usuario no encontrado'
+            ];
+        }
+    } catch (PDOException $e) {
+        $response = [
+            'success' => false,
+            'message' => 'Error al conectar con la base de datos'
+        ];
+    }
+
+    echo json_encode($response);
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -116,7 +92,7 @@
     <!-- Fin de la NavBar -->
 
     <!-- Botón de Regresar -->
-<a href="formaciondocente.php" class="regresar">Regresar</a>
+<a href="info.php" class="regresar">Regresar</a>
 <br>
  <div class="container d-flex justify-content-center align-items-center">
         <div class="form-container p-4 shadow-sm rounded">
@@ -124,7 +100,7 @@
                 <p class="form-title">Desarrollo de actividades dentro del aula</p>
                 <p class="form-sub-title">Ingrese su correo electrónico</p>
                 <div class="mb-3">
-                    <input type="email" class="form-control" id="email" placeholder="Correo electrónico" required>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Correo electrónico" required>
                 </div>
                 <input type="hidden" id="result-data" name="result-data">
                 <button type="submit" class="btn btn-primary w-100">Continuar</button>
@@ -178,16 +154,18 @@
             document.getElementById('footerContainer').innerHTML = data;
         });
 
-        document.getElementById('email-form').addEventListener('submit', function(event) {
+    </script>
+    <script>
+document.getElementById('email-form').addEventListener('submit', function(event) {
     event.preventDefault();
     const email = document.getElementById('email').value;
     
     fetch('validate_email.php', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: JSON.stringify({ email: email })
+        body: new URLSearchParams({ email: email })
     })
     .then(response => response.json())
     .then(data => {
@@ -197,11 +175,13 @@
                 text: `Nombre: ${data.user.nombre} ${data.user.paterno} ${data.user.materno}\nCorreo: ${data.user.correo}`,
                 icon: 'success',
                 confirmButtonText: 'Aceptar'
+            }).then(() => {
+                window.location.href = 'formaciondocente.php';
             });
         } else {
             Swal.fire({
                 title: 'No Encontrado',
-                text: 'No se encontraron sus datos.',
+                text: data.message,
                 icon: 'error',
                 showCancelButton: true,
                 confirmButtonText: 'Registrar',
@@ -213,12 +193,17 @@
             });
         }
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error => {
+        Swal.fire({
+            title: 'Error',
+            text: 'Error al procesar la solicitud',
+            icon: 'error',
+            confirmButtonText: 'Aceptar'
+        });
+        console.error('Error:', error);
+    });
 });
-
-    </script>
-
-    
+</script>
 
 </body>
 
