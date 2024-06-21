@@ -41,8 +41,8 @@
             </div>
             <!-- Contenido Principal -->
             <div class="col-lg-10">
-                <div class="contenido">
-                    <h5>Datos Generales</h5>
+                <div class="contenido mx-auto" style="max-width:800px;">
+                <h4 id="section-title">Datos Generales</h4>
                     <div class="line"></div>
                     <form class="form" action="procesar_formulario.php" method="POST">
                         <!-- Sección 1 -->
@@ -92,16 +92,15 @@
                                 <label for="areas">Áreas de Dominio</label>
                             </div>
                             <div class="input-field">
-                                <textarea id="semblanza" name="semblanza" rows="3" required></textarea>
+                                <input type="text" id="semblanza" name="semblanza" required></input>
                                 <label for="semblanza">Breve Semblanza Curricular</label>
                             </div>
-                            <button type="button" class="btn btn-primary botones"
-                                onclick="nextStep()">Siguiente</button>
+                            <button type="button" class="btn btn-primary botones btn-right" onclick="nextStep()">Siguiente</button>
                         </div>
+
                         <!-- Sección 2 -->
                         <div class="form-section" style="display: none;">
-                            <h4>Características de la actividad formativa</h4>
-                            <h5>Modalidad de la Actividad Formativa</h5>
+                            <h5 class="titulos">Modalidad de la Actividad Formativa</h5>
                             <div class="input-field">
                                 <select id="modalidad" name="modalidad" required>
                                     <?php foreach ($modalidades as $modalidad): ?>
@@ -119,7 +118,7 @@
                                 <input type="text" id="nombreActividad" name="nombreActividad" required>
                                 <label for="nombreActividad">Nombre de la Actividad</label>
                             </div>
-                            <h5>Indique el total de horas para el desarrollo de la actividad</h5>
+                            <h5 class="titulos">Indique el total de horas para el desarrollo de la actividad</h5>
                             <div class="input-field">
                                 <input type="number" id="presencial" name="presencial" required>
                                 <label for="presencial">Presenciales</label>
@@ -133,20 +132,17 @@
                                 <label for="independiente">Trabajo Independiente</label>
                             </div>
                             <div class="input-field">
+                                <p>Total de la actividad (horas): </p>
                                 <input type="number" id="duracion" name="duracion" required readonly>
-                                <label for="duracion">Total de la Actividad Formativa (Horas)</label>
                             </div>
                             <div class="button-group">
-                                <button type="button" class="btn btn-secondary botones"
-                                    onclick="prevStep()">Anterior</button>
-                                <button type="button" class="btn btn-primary botones"
-                                    onclick="nextStep()">Siguiente</button>
+                                <button type="button" class="btn btn-secondary botones btn-left" onclick="prevStep()">Anterior</button>
+                                <button type="button" class="btn btn-primary botones btn-right" onclick="nextStep()">Siguiente</button>
                             </div>
                         </div>
+
                         <!-- Sección 3 -->
                         <div class="form-section" style="display: none;">
-                            <h4>Características de la actividad formativa</h4>
-                            <h5>Modalidad de la Actividad Formativa</h5>
                             <div class="input-field">
                                 <select id="tipo" name="tipo" required>
                                     <?php foreach ($tipos as $tipo): ?>
@@ -166,9 +162,9 @@
                             </div>
                             <div class="input-field">
                                 <input type="text" id="egreso" name="egreso" required>
-                                <label for="egreso">Perfil de Egreso</label>
+                                <label for="egreso">Perfil de egreso</label>
                             </div>
-                            <h5>Clasificación de la actividad</h5>
+                            <h4 class="titulos">Clasificación de la actividad</h4>
                             <div class="input-field">
                                 <select id="clasificacion" name="clasificacion" required>
                                     <?php foreach ($clasificaciones as $clasificacion): ?>
@@ -176,69 +172,102 @@
                                         <?php echo $clasificacion['nombre']; ?>
                                     </option>
                                     <?php endforeach; ?>
-                                    <option value="otro">clasificacion</option>
                                 </select>
                             </div>
+                            <div class="input-field">
+                                <p>Presentación de la actividad formativa</p>
+                                <textarea id="presentacion" name="presentacion" rows="2" required></textarea>
+                            </div>
+                            <h5 id="section-title">Duración de la Actividad Formativa</h5>
+                            <div class="input-field">
+                                <input type="text" id="objetivo" name="objetivo" required>
+                                <label for="objetivo">Objetivo general</label>
+                            </div>
+                            <div class="input-field">
+                                <input type="text" id="temario" name="temario" required>
+                                <label for="temario">Temario</label>
+                            </div>
+                            <div class="input-field">
+                                <input type="text" id="actividad" name="actividad" required>
+                                <label for="actividad">Actividades</label>
+                            </div>
                             <div class="button-group">
-                                <button type="button" class="btn btn-secondary botones"
-                                    onclick="prevStep()">Anterior</button>
-                                <button type="button" class="btn btn-primary botones"
-                                    onclick="nextStep()">Siguiente</button>
+                                <button type="button" class="btn btn-secondary botones btn-left" onclick="prevStep()">Anterior</button>
+                                <button type="button" class="btn btn-primary botones btn-right" onclick="nextStep()">Siguiente</button>
                             </div>
                         </div>
-                </div>
 
-                <!-- Sección 4 -->
-                <div class="form-section" style="display: none;">
+                        <!-- Sección 4 -->
+                        <div class="form-section" style="display: none;">
+                            <h5 class="titulos">Tipo de recurso que requiere (Marque la casilla con la opción deseada)</h5>
 
-                </div>
-                <h5>Programa general de la actividad formativa</h5>
-                <div class="word-counter">
-                    <label for="texto">Presentación de la actividad formativa (máximo 500 palabras):</label><br>
-                    <textarea id="texto" rows="6" cols="50"></textarea>
-                </div>
-                <div>
-                    <p>Palabras restantes: <span id="contador"></span></p>
-                </div>
-
-                <div class="input-field">
-                    <input type="text" id="objetivo" name="objetivo" required>
-                    <label for="objetivo">Objetivo general</label>
-                </div>
-                <div class="input-field">
-                    <input type="text" id="temario" name="temario" required>
-                    <label for="temario">Temario</label>
-                </div>
-                <div class="input-field">
-                    <input type="text" id="Actividades" name="Actividades" required>
-                    <label for="Actividades">Actividades</label>
-                </div>
-                <div class="button-group">
-                    <button type="button" class="btn btn-secondary botones" onclick="prevStep()">Anterior</button>
-                    <button type="button" class="btn btn-primary botones" onclick="nextStep()">Siguiente</button>
+                            <div class="checkbox-wrapper-46">
+                                <input type="checkbox" id="cbx-46-1" class="inp-cbx" />
+                                <label for="cbx-46-1" class="cbx">
+                                    <span>
+                                        <svg viewBox="0 0 12 10" height="10px" width="12px">
+                                            <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                        </svg>
+                                    </span>
+                                    <span>Apertura de Aula virtual en plataforma de aprendizaje Moodle</span>
+                                </label>
+                            </div>
+                            <div class="checkbox-wrapper-46">
+                                <input type="checkbox" id="cbx-46-2" class="inp-cbx" />
+                                <label for="cbx-46-2" class="cbx">
+                                    <span>
+                                        <svg viewBox="0 0 12 10" height="10px" width="12px">
+                                            <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                        </svg>
+                                    </span>
+                                    <span>Apertura de Aula virtual en plataforma de aprendizaje Microsoft Teams</span>
+                                </label>
+                            </div>
+                            <div class="checkbox-wrapper-46">
+                                <input type="checkbox" id="cbx-46-3" class="inp-cbx" />
+                                <label for="cbx-46-3" class="cbx">
+                                    <span>
+                                        <svg viewBox="0 0 12 10" height="10px" width="12px">
+                                            <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                        </svg>
+                                    </span>
+                                    <span>Apoyo para la elaboración de recursos digitales como videos, entre
+                                        otros</span>
+                                </label>
+                            </div>
+                            <div class="checkbox-wrapper-46">
+                                <input type="checkbox" id="cbx-46-4" class="inp-cbx" />
+                                <label for="cbx-46-4" class="cbx">
+                                    <span>
+                                        <svg viewBox="0 0 12 10" height="10px" width="12px">
+                                            <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                        </svg>
+                                    </span>
+                                    <span>Apoyo técnico de transmisiones en vivo en plataforma: Google Meet, Zoom o
+                                        Microsoft</span>
+                                </label>
+                            </div>
+                            <div class="checkbox-wrapper-46">
+                                <input type="checkbox" id="cbx-46-5" class="inp-cbx" />
+                                <label for="cbx-46-5" class="cbx">
+                                    <span>
+                                        <svg viewBox="0 0 12 10" height="10px" width="12px">
+                                            <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                        </svg>
+                                    </span>
+                                    <span>Apoyo técnico para montaje de la actividad formativa en plataforma de
+                                        aprendizaje Moodle</span>
+                                </label>
+                            </div>
+                            <div class="button-group">
+                            <button type="button" class="btn btn-secondary botones btn-left" onclick="prevStep()">Anterior</button>
+                                <button type="submit" class="btn btn-primary enviar">Enviar</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-            </div>
-
-            <!-- Sección 5 -->
-            <div class="form-section" style="display: none;">
-                <h5>Requerimientos para el desarrollo de la actividad</h5>
-
-                <button type="button" class="btn btn-secondary" onclick="prevStep()">Anterior</button>
-                <button type="submit" class="btn btn-primary">Enviar</button>
-            </div>
-
-            <!-- Sección 6 -->
-            <div class="form-section" style="display: none;">
-                <h3>Confirmación y Envío</h3>
-                <!-- Puedes agregar cualquier información adicional aquí -->
-                <button type="button" class="btn btn-secondary botones" onclick="prevStep()">Anterior</button>
-                <button type="submit" class="btn btn-primary botones">Enviar</button>
-            </div>
-            </form>
         </div>
-        </div>
-    </div>
     </div>
 
     <!-- Footer -->
@@ -273,30 +302,38 @@
 
     // Manejo de la navegación entre secciones del formulario
     let currentStep = 0;
-    const formSections = document.querySelectorAll('.form-section');
+        const formSections = document.querySelectorAll('.form-section');
+        const sectionTitles = [
+            'Datos Generales',
+            'Características de la Actividad Formativa',
+            'Modalidad',
+            'Requerimientos para el Desarrollo de la Actividad'
+        ];
 
-    function showStep(step) {
-        formSections.forEach((section, index) => {
-            section.style.display = index === step ? 'block' : 'none';
-        });
-    }
-
-    function nextStep() {
-        if (currentStep < formSections.length - 1) {
-            currentStep++;
-            showStep(currentStep);
+        function showStep(step) {
+            formSections.forEach((section, index) => {
+                section.style.display = index === step ? 'block' : 'none';
+            });
+            document.getElementById('section-title').textContent = sectionTitles[step];
         }
-    }
 
-    function prevStep() {
-        if (currentStep > 0) {
-            currentStep--;
-            showStep(currentStep);
+        function nextStep() {
+            if (currentStep < formSections.length - 1) {
+                currentStep++;
+                showStep(currentStep);
+            }
         }
-    }
 
-    // Inicializar el formulario mostrando la primera sección
-    showStep(currentStep);
+        function prevStep() {
+            if (currentStep > 0) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        }
+
+        // Inicializar el formulario mostrando la primera sección
+        showStep(currentStep);
+
 
     //contador de palabras
     document.addEventListener('DOMContentLoaded', function() {
@@ -319,8 +356,6 @@
         });
     });
 
-
-
     fetch("./templates/header.html")
         .then((response) => response.text())
         .then((data) => {
@@ -330,11 +365,6 @@
         .then((response) => response.text())
         .then((data) => {
             document.getElementById("menuContainer").innerHTML = data;
-        });
-    fetch("./templates/footer.html")
-        .then((response) => response.text())
-        .then((data) => {
-            document.getElementById("footer").innerHTML = data;
         });
     </script>
 </body>
