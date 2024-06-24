@@ -17,13 +17,11 @@
    $conexion = new CConexion();
    $conexion->conexionBD(); // Conectar a la base de datos
    
-   /* Fetch perfil options
-   $stmtPerfil = $conexion->getConnection()->query("SELECT id, nombre FROM PERFIL");
-   $perfiles = $stmtPerfil->fetchAll(PDO::FETCH_ASSOC);
-   
-   // Fetch modalidad options
-   $stmtModalidad = $conexion->getConnection()->query("SELECT id, nombre FROM MODALIDAD");
-   $modalidades = $stmtModalidad->fetchAll(PDO::FETCH_ASSOC);*/
+   $perfiles = obtenerPerfiles();
+   $modalidades = obtenerModalidades();
+   $clasificaciones = obtenerClasificaciones();
+   $tipos = obtenerTipos();
+
     ?>
 
     <div id="headerContainer"></div>
@@ -42,7 +40,7 @@
             <!-- Contenido Principal -->
             <div class="col-lg-10">
                 <div class="contenido mx-auto" style="max-width:800px;">
-                <h4 id="section-title">Datos Generales</h4>
+                    <h4 id="section-title">Datos Generales</h4>
                     <div class="line"></div>
                     <form class="form" action="procesar_formulario.php" method="POST">
                         <!-- Sección 1 -->
@@ -75,10 +73,13 @@
                                 <input type="text" id="institucion" name="institucion" required>
                                 <label for="institucion">Institución Académica del Último Grado</label>
                             </div>
+                            <!-- PERFIL SELECTS DESDE LA BD-->
                             <div class="input-field">
                                 <select id="perfil" name="perfil" required>
+                                    <option value="" disabled selected>Selecciona un perfil</option>
                                     <?php foreach ($perfiles as $perfil): ?>
-                                    <option value="<?php echo $perfil['id']; ?>"><?php echo $perfil['nombre']; ?>
+                                    <option value="<?php echo htmlspecialchars($perfil['id']); ?>">
+                                        <?php echo htmlspecialchars($perfil['nombre']); ?>
                                     </option>
                                     <?php endforeach; ?>
                                 </select>
@@ -95,14 +96,17 @@
                                 <input type="text" id="semblanza" name="semblanza" required></input>
                                 <label for="semblanza">Breve Semblanza Curricular</label>
                             </div>
-                            <button type="button" class="btn btn-primary botones btn-right" onclick="nextStep()">Siguiente</button>
+                            <button type="button" class="btn btn-primary botones btn-right"
+                                onclick="nextStep()">Siguiente</button>
                         </div>
 
                         <!-- Sección 2 -->
                         <div class="form-section" style="display: none;">
                             <h5 class="titulos">Modalidad de la Actividad Formativa</h5>
+                            <!-- MODALIDAD SELECTS DESDE LA BD-->
                             <div class="input-field">
-                                <select id="modalidad" name="modalidad" required>
+                                <select id="modalidad" name="modalidad" required onchange="toggleOtraModalidad(this)">
+                                    <option value="" disabled selected>Selecciona una modalidad</option>
                                     <?php foreach ($modalidades as $modalidad): ?>
                                     <option value="<?php echo $modalidad['id']; ?>"><?php echo $modalidad['nombre']; ?>
                                     </option>
@@ -110,6 +114,7 @@
                                     <option value="otro">Otro</option>
                                 </select>
                             </div>
+
                             <div class="input-field" id="otraModalidad" style="display: none;">
                                 <input type="text" id="otraModalidadTexto" name="otraModalidadTexto">
                                 <label for="otraModalidadTexto">Especifique Otra Modalidad</label>
@@ -136,21 +141,30 @@
                                 <input type="number" id="duracion" name="duracion" required readonly>
                             </div>
                             <div class="button-group">
-                                <button type="button" class="btn btn-secondary botones btn-left" onclick="prevStep()">Anterior</button>
-                                <button type="button" class="btn btn-primary botones btn-right" onclick="nextStep()">Siguiente</button>
+                                <button type="button" class="btn btn-secondary botones btn-left"
+                                    onclick="prevStep()">Anterior</button>
+                                <button type="button" class="btn btn-primary botones btn-right"
+                                    onclick="nextStep()">Siguiente</button>
                             </div>
                         </div>
 
                         <!-- Sección 3 -->
                         <div class="form-section" style="display: none;">
+
+                            <!-- TIPO SELECTS DESDE LA BD-->
                             <div class="input-field">
                                 <select id="tipo" name="tipo" required>
                                     <?php foreach ($tipos as $tipo): ?>
-                                    <option value="<?php echo $tipo['id']; ?>"><?php echo $tipo['nombre']; ?>
-                                    </option>
+                                    <option value="<?php echo $tipo['id']; ?>"><?php echo $tipo['nombre']; ?></option>
                                     <?php endforeach; ?>
                                     <option value="otro">Otro</option>
                                 </select>
+                                
+                            </div>
+
+                            <div class="input-field" id="otroTipo" style="display: none;">
+                                <input type="text" id="otroTipoTexto" name="otroTipoTexto">
+                                <label for="otroTipoTexto">Especifique Otro Tipo de Actividad</label>
                             </div>
                             <div class="input-field">
                                 <input type="text" id="dirigido" name="dirigido" required>
@@ -164,19 +178,22 @@
                                 <input type="text" id="egreso" name="egreso" required>
                                 <label for="egreso">Perfil de egreso</label>
                             </div>
-                            <h4 class="titulos">Clasificación de la actividad</h4>
+                            <!-- CLASIFICACION SELECTS DESDE LA BD-->
+                            <h5 class="titulos">Clasificación de la actividad</h5>
                             <div class="input-field">
                                 <select id="clasificacion" name="clasificacion" required>
                                     <?php foreach ($clasificaciones as $clasificacion): ?>
                                     <option value="<?php echo $clasificacion['id']; ?>">
-                                        <?php echo $clasificacion['nombre']; ?>
-                                    </option>
+                                        <?php echo $clasificacion['nombre']; ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
                             <div class="input-field">
-                                <p>Presentación de la actividad formativa</p>
-                                <textarea id="presentacion" name="presentacion" rows="2" required></textarea>
+                                <br>
+                                <p>Presentación de la actividad formativa (Máximo 500 palabras)</p>
+                                <textarea id="presentacion" name="presentacion" rows="2" cols="50" required
+                                    oninput="countWords()"></textarea>
+                                <p id="wordCountDisplay">Palabras: 0 / 500</p>
                             </div>
                             <h5 id="section-title">Duración de la Actividad Formativa</h5>
                             <div class="input-field">
@@ -192,14 +209,17 @@
                                 <label for="actividad">Actividades</label>
                             </div>
                             <div class="button-group">
-                                <button type="button" class="btn btn-secondary botones btn-left" onclick="prevStep()">Anterior</button>
-                                <button type="button" class="btn btn-primary botones btn-right" onclick="nextStep()">Siguiente</button>
+                                <button type="button" class="btn btn-secondary botones btn-left"
+                                    onclick="prevStep()">Anterior</button>
+                                <button type="button" class="btn btn-primary botones btn-right"
+                                    onclick="nextStep()">Siguiente</button>
                             </div>
                         </div>
 
                         <!-- Sección 4 -->
                         <div class="form-section" style="display: none;">
-                            <h5 class="titulos">Tipo de recurso que requiere (Marque la casilla con la opción deseada)</h5>
+                            <h5 class="titulos">Tipo de recurso que requiere (Marque la casilla con la opción deseada)
+                            </h5>
 
                             <div class="checkbox-wrapper-46">
                                 <input type="checkbox" id="cbx-46-1" class="inp-cbx" />
@@ -260,7 +280,8 @@
                                 </label>
                             </div>
                             <div class="button-group">
-                            <button type="button" class="btn btn-secondary botones btn-left" onclick="prevStep()">Anterior</button>
+                                <button type="button" class="btn btn-secondary botones btn-left"
+                                    onclick="prevStep()">Anterior</button>
                                 <button type="submit" class="btn btn-primary enviar">Enviar</button>
                             </div>
                         </div>
@@ -278,14 +299,17 @@
 
     <script>
     // Mostrar campo "Otra Modalidad" si selecciona "Otro"
-    document.getElementById('modalidad').addEventListener('change', function() {
-        var otraModalidad = document.getElementById('otraModalidad');
-        if (this.value === 'otro') {
-            otraModalidad.style.display = 'block';
+    function toggleOtraModalidad(select) {
+        var otraModalidad = document.getElementById("otraModalidad");
+        if (select.value === "otro") {
+            otraModalidad.style.display = "block";
         } else {
-            otraModalidad.style.display = 'none';
+            otraModalidad.style.display = "none";
         }
-    });
+    }
+
+    // Mostrar campo "Otro " si selecciona "Otro"
+
 
     // Calcular duración total
     function calcularDuracionTotal() {
@@ -302,58 +326,63 @@
 
     // Manejo de la navegación entre secciones del formulario
     let currentStep = 0;
-        const formSections = document.querySelectorAll('.form-section');
-        const sectionTitles = [
-            'Datos Generales',
-            'Características de la Actividad Formativa',
-            'Modalidad',
-            'Requerimientos para el Desarrollo de la Actividad'
-        ];
+    const formSections = document.querySelectorAll('.form-section');
+    const sectionTitles = [
+        'Datos Generales',
+        'Características de la Actividad Formativa',
+        'Modalidad',
+        'Requerimientos para el Desarrollo de la Actividad'
+    ];
 
-        function showStep(step) {
-            formSections.forEach((section, index) => {
-                section.style.display = index === step ? 'block' : 'none';
-            });
-            document.getElementById('section-title').textContent = sectionTitles[step];
+    function showStep(step) {
+        formSections.forEach((section, index) => {
+            section.style.display = index === step ? 'block' : 'none';
+        });
+        document.getElementById('section-title').textContent = sectionTitles[step];
+    }
+
+    function nextStep() {
+        if (currentStep < formSections.length - 1) {
+            currentStep++;
+            showStep(currentStep);
         }
+    }
 
-        function nextStep() {
-            if (currentStep < formSections.length - 1) {
-                currentStep++;
-                showStep(currentStep);
-            }
+    function prevStep() {
+        if (currentStep > 0) {
+            currentStep--;
+            showStep(currentStep);
         }
+    }
 
-        function prevStep() {
-            if (currentStep > 0) {
-                currentStep--;
-                showStep(currentStep);
-            }
-        }
-
-        // Inicializar el formulario mostrando la primera sección
-        showStep(currentStep);
+    // Inicializar el formulario mostrando la primera sección
+    showStep(currentStep);
 
 
     //contador de palabras
-    document.addEventListener('DOMContentLoaded', function() {
-        var textarea = document.getElementById('texto');
-        var contador = document.getElementById('contador');
+    function countWords() {
+        const textInput = document.getElementById('presentacion');
+        const wordCountDisplay = document.getElementById('wordCountDisplay');
+        const words = textInput.value.split(/\s+/).filter(word => word.length > 0);
+        const wordCount = words.length;
 
-        textarea.addEventListener('input', function() {
-            var texto = textarea.value;
-            var palabras = texto.split(/\s+/); // Dividir por cualquier secuencia de espacios en blanco
-            var numPalabras = palabras.length;
+        wordCountDisplay.textContent = `Palabras: ${wordCount} / 500`;
 
-            if (numPalabras > 500) {
-                // Si se excede el límite, se recorta
-                texto = palabras.slice(0, 500).join(" ");
-                textarea.value = texto;
-                numPalabras = 500;
-            }
+        if (wordCount > 500) {
+            wordCountDisplay.classList.add('word-count');
+        } else {
+            wordCountDisplay.classList.remove('word-count');
+        }
+    }
 
-            contador.textContent = 500 - numPalabras;
-        });
+    document.querySelector('form').addEventListener('submit', function(event) {
+        const wordCount = document.getElementById('presentacion').value.split(/\s+/).filter(word => word
+            .length > 0).length;
+
+        if (wordCount > 500) {
+            event.preventDefault();
+            alert('El texto no debe superar las 500 palabras.');
+        }
     });
 
     fetch("./templates/header.html")

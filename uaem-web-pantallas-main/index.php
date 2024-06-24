@@ -34,7 +34,7 @@
                         <a class="nav-link" href="./evaluaciondocente.html">Evaluación Docente</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./formaciondocente.html">Formación Docente</a>
+                        <a class="nav-link" href="./formaciondocente.php">Formación Docente</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="./documentosconsulta.html">Documentos de Consulta</a>

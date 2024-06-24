@@ -225,4 +225,10 @@
       transform: scale(0.9);
     }
   }
+
+  .word-count { color: red; }
+        .input-field {
+            display: flex;
+            flex-direction: column;
+        }
   

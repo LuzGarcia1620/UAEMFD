@@ -43,9 +43,8 @@
                 <br>
                 <div class="titulo">Actividades</div>
                 <div>
-                    <button class="actividad">
-                        <img src="Assets/img/agregar.png" alt="Imagen" class="icono">
-                        Nueva actividad
+                    <button class="actividad" onclick="openModal('modal3')">
+                        <img src="Assets/img/agregar.png" alt="Imagen" class="icono"> Nueva actividad
                     </button>
                 </div>
                 <div class="divider-line"></div>
@@ -85,15 +84,13 @@
 
     <!-- Modales -->
     <div id="modal1" class="modal">
-        <div class="modal-content">
+        <div class="modal-content contenido">
             <div class="modal-body-content">
                 <div class="modal-footer-title">Ver Actividad</div>
                 <div class="divider-line"></div>
                 <div class="modal-body-title">Desarrollo de actividades dentro del aula</div>
                 <p>Dirigido: personal académico de la UAEM</p>
-                <p>Objetivo: Reconocer la utilidad y pertinencia de diversas<br />herramientas didácticas aplicables a
-                    la
-                    planeación didáctica</p>
+                <p>Objetivo: Reconocer la utilidad y pertinencia de diversas<br />herramientas didácticas aplicables a la planeación didáctica</p>
                 <p>Imparte: Dra. Paulina Lizette Toscano Arenas, Docente de la UAEM</p>
                 <p>Modalidad: En línea</p>
                 <p>Duración: 20 horas distribuidas en 5 horas sincrónicas y 15 horas asincrónicas.</p>
@@ -114,31 +111,31 @@
 
     <!-- Modal 2 -->
     <div id="modal2" class="modal">
-        <div class="modal-content">
+        <div class="modal-content contenido">
             <div class="tarjeta">
                 <div class="modal-footer-title">Editar Actividad</div>
                 <div class="divider-line"></div>
                 <form class="formulario">
-                    <div class="grupo">
+                    <div class="input-field">
                         <label for="nombre">Nombre de la Actividad</label>
                         <input placeholder="" type="text" id="nombre" name="nombre" required="">
                     </div>
-                    <div class="grupo">
+                    <div class="input-field">
                         <label for="dirigido">A quién va dirigido</label>
                         <input placeholder="" type="text" id="dirigido" name="dirigido" required="">
                     </div>
-                    <div class="grupo">
+                    <div class="input-field">
                         <label for="objetivo">Objetivo</label>
-                        <textarea placeholder="" id="objetivo" name="objetivo" rows="5" required=""></textarea>
+                        <textarea placeholder="" id="objetivo" name="objetivo" rows="3" required=""></textarea>
                     </div>
-                    <div class="grupo">
+                    <div class="input-field">
                         <label for="Instructor">Instructor</label>
                         <select id="Instructor" name="Instructor" required="">
                             <option value="" disabled selected>Selecciona un instructor</option>
                             <!-- Aquí se agregarán las opciones dinámicamente desde el servidor -->
                         </select>
                     </div>
-                    <div class="grupo">
+                    <div class="input-field">
                         <label for="Modalidad">Modalidad</label>
                         <select id="Modalidad" name="Modalidad" required="">
                             <option value="" disabled selected>Selecciona una modalidad</option>
@@ -148,15 +145,15 @@
                             <option value="Híbrida">Híbrida</option>
                         </select>
                     </div>
-                    <div class="grupo">
+                    <div class="input-field">
                         <label for="Fecha">Fecha</label>
                         <input type="text" id="Fecha" name="Fecha" required="">
                     </div>
-                    <div class="grupo">
+                    <div class="input-field">
                         <label for="Duracion">Duración</label>
                         <input placeholder="" id="Duracion" name="Duracion" required="">
                     </div>
-                    <div class="grupo">
+                    <div class="input-field">
                         <label for="Horario">Horario</label>
                         <input placeholder="" id="Horario" name="Horario" required="">
                     </div>
@@ -173,6 +170,69 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal 3 -->
+    <div id="modal3" class="modal">
+        <div class="modal-content contenido">
+            <div class="tarjeta">
+                <div class="modal-footer-title">Nueva Actividad</div>
+                <div class="divider-line"></div>
+                <form class="formulario">
+                    <div class="input-field">
+                        <label for="nombre">Nombre de la Actividad</label>
+                        <input type="text" id="nombre" name="nombre" required>
+                    </div>
+                    <div class="input-field">
+                        <label for="dirigido">A quién va dirigido</label>
+                        <input type="text" id="dirigido" name="dirigido" required>
+                    </div>
+                    <div class="input-field">
+                        <label for="objetivo">Objetivo</label>
+                        <textarea id="objetivo" name="objetivo" rows="3" required></textarea>
+                    </div>
+                    <div class="input-field">
+                        <label for="Instructor">Instructor</label>
+                        <select id="Instructor" name="Instructor" required>
+                            <option value="" disabled selected>Selecciona un instructor</option>
+                            <!-- Aquí se agregarán las opciones dinámicamente desde el servidor -->
+                        </select>
+                    </div>
+                    <div class="input-field">
+                        <label for="Modalidad">Modalidad</label>
+                        <select id="Modalidad" name="Modalidad" required>
+                            <option value="" disabled selected>Selecciona una modalidad</option>
+                            <option value="Presencial">Presencial</option>
+                            <option value="En línea">En línea</option>
+                            <option value="Virtual">Virtual</option>
+                            <option value="Híbrida">Híbrida</option>
+                        </select>
+                    </div>
+                    <div class="input-field">
+                        <label for="Fecha">Fecha</label>
+                        <input type="text" id="Fecha" name="Fecha" required>
+                    </div>
+                    <div class="input-field">
+                        <label for="Duracion">Duración</label>
+                        <input type="text" id="Duracion" name="Duracion" required>
+                    </div>
+                    <div class="input-field">
+                        <label for="Horario">Horario</label>
+                        <input type="text" id="Horario" name="Horario" required>
+                    </div>
+                </form>
+            </div>
+
+            <div class="button-container">
+                <div>
+                    <button class="blue-button" onclick="closeModal('modal3')">Regresar</button>
+                </div>
+                <div>
+                    <button class="green-button">Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <script>
     function openModal(modalId) {

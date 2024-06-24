@@ -303,12 +303,71 @@ td {
   width: 100%; /* Ajustar el ancho al 100% del contenedor */
 }
 
-.formulario .grupo input,
-.formulario .grupo textarea,
-.formulario .grupo select {
-  width: calc(100% - 20px); /* Ajustar el ancho para incluir padding */
+.formulario .input-field {
+  margin-bottom: 20px;
+}
+
+.formulario .input-field label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.input-field {
+  position: relative;
+}
+
+.input-field label {
+  position: absolute;
+  color: #8d8d8d;
+  pointer-events: none;
+  background-color: transparent;
+  left: 15px;
+  transform: translateY(0.6rem);
+  transition: all 0.3s ease;
+}
+
+.input-field input {
+  padding: 10px 15px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: solid 1px #8d8d8d;
+  letter-spacing: 1px;
+  width: 100%;
+}
+
+.input-field input:focus,
+.input-field input:valid {
+  outline: none;
+  border: solid 1px #0034de;
+}
+
+.input-field input:focus ~ label,
+.input-field input:valid ~ label {
+  transform: translateY(-51%) translateX(-10px) scale(0.8);
+  background-color: #fff;
+  padding: 0px 5px;
+  color: #0034de;
+  font-weight: bold;
+  letter-spacing: 1px;
+  border: none;
+  border-radius: 100px;
+}
+
+.contenido{
+  border: solid 1px #8d8d8d;
+  padding: 20px;
+  border-radius: 20px;
+  background-color: #fff;
+}
+
+.contenido .heading {
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  font-weight: bolder;
 }
 
 #Fecha {
   background-color: #fff; /* Asegurar que el fondo del input de fecha sea blanco */
 }
+
