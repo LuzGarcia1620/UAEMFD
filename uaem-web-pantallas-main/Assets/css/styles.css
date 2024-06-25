@@ -188,6 +188,15 @@ Estilo del footer más pequeño */
   font-size: 0.9em; /* Reduce el tamaño de fuente para hacer el contenido más compacto */
 }
 
+.footer {
+  background-color: rgb(24, 24, 150);
+  color: white;
+  text-align: center;
+  bottom: 0;
+  width: 100%;
+  height: 70px;
+}
+
 /* Enlaces en el pie de página con color blanco y sin subrayado */
 .sm-custom-footer a {
   color: white;

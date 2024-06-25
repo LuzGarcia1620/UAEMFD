@@ -31,9 +31,9 @@
             <div class="col-lg-2">
                 <ul class="list-unstyled vertical-nav">
                     <li><a href="perfil.php" class="btn btn-block my-1 menu">Perfil</a></li>
-                    <li><a href="actividadformativa.php" class="btn btn-primary btn-block my-1 menu">Formulario</a></li>
-                    <li><a href="usuarios.php" class="btn btn-primary btn-block my-1 menu">Lista de Asistencia</a></li>
-                    <li><a href="consultas.php" class="btn btn-primary btn-block my-1 menu">Material</a></li>
+                    <li><a href="instructor.php" class="btn btn-primary btn-block my-1 menu">Formulario</a></li>
+                    <li><a href="Asistencia.php" class="btn btn-primary btn-block my-1 menu">Lista de Asistencia</a></li>
+                    <li><a href="material.php" class="btn btn-primary btn-block my-1 menu">Material</a></li>
                     <li><a href="salir.php" class="btn btn-primary btn-block my-1 menu">Salir</a></li>
                 </ul>
             </div>
@@ -103,6 +103,7 @@
                         <!-- Sección 2 -->
                         <div class="form-section" style="display: none;">
                             <h5 class="titulos">Modalidad de la Actividad Formativa</h5>
+
                             <!-- MODALIDAD SELECTS DESDE LA BD-->
                             <div class="input-field">
                                 <select id="modalidad" name="modalidad" required onchange="toggleOtraModalidad(this)">
@@ -154,13 +155,21 @@
                             <!-- TIPO SELECTS DESDE LA BD-->
                             <div class="input-field">
                                 <select id="tipo" name="tipo" required>
+                                    <?php 
+                                     $tipos = obtenerTipos(); // Asegúrate de que esto está bien ubicado
+                                     if (!empty($tipos)): 
+                                    ?>
                                     <?php foreach ($tipos as $tipo): ?>
-                                    <option value="<?php echo $tipo['id']; ?>"><?php echo $tipo['nombre']; ?></option>
+                                    <option value="<?php echo htmlspecialchars($tipo['id']); ?>">
+                                        <?php echo htmlspecialchars($tipo['tipo']); ?></option>
                                     <?php endforeach; ?>
+                                    <?php else: ?>
+                                    <option value="">No hay tipos disponibles</option>
+                                    <?php endif; ?>
                                     <option value="otro">Otro</option>
                                 </select>
-                                
                             </div>
+
 
                             <div class="input-field" id="otroTipo" style="display: none;">
                                 <input type="text" id="otroTipoTexto" name="otroTipoTexto">

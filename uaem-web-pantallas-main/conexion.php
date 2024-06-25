@@ -67,10 +67,11 @@ function obtenerTipos() {
     $conexion = new CConexion();
     $conn = $conexion->conexionBD();
 
-    $query = "SELECT * FROM tipo";
+    $query = "SELECT id, tipo FROM tipo"; // Ajustado a la estructura de tu tabla
     try {
         $stmt = $conn->query($query);
         $tipos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
     } catch (PDOException $e) {
         echo "Error al obtener los tipos de actividad: " . $e->getMessage();
         $tipos = [];

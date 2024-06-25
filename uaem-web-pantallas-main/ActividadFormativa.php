@@ -19,6 +19,16 @@
     include_once("conexion.php");
     $conexion = new CConexion();
     $conexion->conexionBD();
+
+    
+   $modalidades = obtenerModalidades();
+
+   // Obtén el ID de la actividad desde la URL o una solicitud POST
+$idActividad = isset($_GET['idActividad']) ? intval($_GET['idActividad']) : null;
+
+if ($idActividad === null) {
+    die("ID de actividad no proporcionado.");
+}
     
     ?>
     <div id="headerContainer"></div>
@@ -131,20 +141,20 @@
                     <div class="input-field">
                         <label for="Instructor">Instructor</label>
                         <select id="Instructor" name="Instructor" required="">
-                            <option value="" disabled selected>Selecciona un instructor</option>
+                            <option value="" disabled selected></option>
                             <!-- Aquí se agregarán las opciones dinámicamente desde el servidor -->
                         </select>
                     </div>
                     <div class="input-field">
-                        <label for="Modalidad">Modalidad</label>
-                        <select id="Modalidad" name="Modalidad" required="">
-                            <option value="" disabled selected>Selecciona una modalidad</option>
-                            <option value="Presencial">Presencial</option>
-                            <option value="En línea">En línea</option>
-                            <option value="Virtual">Virtual</option>
-                            <option value="Híbrida">Híbrida</option>
-                        </select>
-                    </div>
+                                <select id="modalidad" name="modalidad" required onchange="toggleOtraModalidad(this)">
+                                    <option value="" disabled selected>Selecciona una modalidad</option>
+                                    <?php foreach ($modalidades as $modalidad): ?>
+                                    <option value="<?php echo $modalidad['id']; ?>"><?php echo $modalidad['nombre']; ?>
+                                    </option>
+                                    <?php endforeach; ?>
+                                    <option value="otro">Otro</option>
+                                </select>
+                            </div>
                     <div class="input-field">
                         <label for="Fecha">Fecha</label>
                         <input type="text" id="Fecha" name="Fecha" required="">
