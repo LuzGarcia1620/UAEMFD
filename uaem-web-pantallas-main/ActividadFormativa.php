@@ -24,11 +24,6 @@
    $modalidades = obtenerModalidades();
 
    // Obtén el ID de la actividad desde la URL o una solicitud POST
-$idActividad = isset($_GET['idActividad']) ? intval($_GET['idActividad']) : null;
-
-if ($idActividad === null) {
-    die("ID de actividad no proporcionado.");
-}
     
     ?>
     <div id="headerContainer"></div>
@@ -92,7 +87,7 @@ if ($idActividad === null) {
         </footer>
     </div>
 
-    <!-- Modales -->
+    <!-- Modales VER ACTIVIDAD -->
     <div id="modal1" class="modal">
         <div class="modal-content contenido">
             <div class="modal-body-content">
@@ -119,33 +114,34 @@ if ($idActividad === null) {
         </div>
     </div>
 
-    <!-- Modal 2 -->
+    <!-- Modal 2 EDITAR ACTIVIDAD -->
     <div id="modal2" class="modal">
         <div class="modal-content contenido">
             <div class="tarjeta">
                 <div class="modal-footer-title">Editar Actividad</div>
                 <div class="divider-line"></div>
-                <form class="formulario">
-                    <div class="input-field">
+                <form class="form">
+                    <div class="campo">
+                        <input type="text" id="nombre" name="nombre" required="">
                         <label for="nombre">Nombre de la Actividad</label>
-                        <input placeholder="" type="text" id="nombre" name="nombre" required="">
+                        
                     </div>
-                    <div class="input-field">
+                    <div class="campo">
+                        <input type="text" id="dirigido" name="dirigido" required="">
                         <label for="dirigido">A quién va dirigido</label>
-                        <input placeholder="" type="text" id="dirigido" name="dirigido" required="">
                     </div>
-                    <div class="input-field">
+                    <div class="campo">
+                        <textarea placeholder="" id="objetivo" name="objetivo" rows="3" cols="60" required=""></textarea>
                         <label for="objetivo">Objetivo</label>
-                        <textarea placeholder="" id="objetivo" name="objetivo" rows="3" required=""></textarea>
                     </div>
-                    <div class="input-field">
-                        <label for="Instructor">Instructor</label>
+                    <div class="campo">
                         <select id="Instructor" name="Instructor" required="">
                             <option value="" disabled selected></option>
                             <!-- Aquí se agregarán las opciones dinámicamente desde el servidor -->
                         </select>
+                        <label for="Instructor">Instructor</label>
                     </div>
-                    <div class="input-field">
+                    <div class="campo">
                                 <select id="modalidad" name="modalidad" required onchange="toggleOtraModalidad(this)">
                                     <option value="" disabled selected>Selecciona una modalidad</option>
                                     <?php foreach ($modalidades as $modalidad): ?>
@@ -155,17 +151,17 @@ if ($idActividad === null) {
                                     <option value="otro">Otro</option>
                                 </select>
                             </div>
-                    <div class="input-field">
-                        <label for="Fecha">Fecha</label>
+                    <div class="campo">
                         <input type="text" id="Fecha" name="Fecha" required="">
+                        <label for="Fecha">Fecha</label>
                     </div>
-                    <div class="input-field">
-                        <label for="Duracion">Duración</label>
+                    <div class="campo">
                         <input placeholder="" id="Duracion" name="Duracion" required="">
+                        <label for="Duracion">Duración</label>
                     </div>
-                    <div class="input-field">
-                        <label for="Horario">Horario</label>
+                    <div class="campo">
                         <input placeholder="" id="Horario" name="Horario" required="">
+                        <label for="Horario">Horario</label>
                     </div>
                 </form>
             </div>
@@ -181,34 +177,32 @@ if ($idActividad === null) {
         </div>
     </div>
 
-    <!-- Modal 3 -->
+    <!-- Modal 3 NUEVA ACTIVIDAD -->
     <div id="modal3" class="modal">
         <div class="modal-content contenido">
             <div class="tarjeta">
                 <div class="modal-footer-title">Nueva Actividad</div>
                 <div class="divider-line"></div>
-                <form class="formulario">
-                    <div class="input-field">
-                        <label for="nombre">Nombre de la Actividad</label>
+                <form class="form">
+                    <div class="campo">
                         <input type="text" id="nombre" name="nombre" required>
+                        <label for="nombre">Nombre de la Actividad</label>
                     </div>
-                    <div class="input-field">
-                        <label for="dirigido">A quién va dirigido</label>
+                    <div class="campo">
                         <input type="text" id="dirigido" name="dirigido" required>
+                        <label for="dirigido">A quién va dirigido</label>
                     </div>
-                    <div class="input-field">
+                    <div class="campo">
+                        <textarea id="objetivo" name="objetivo" rows="3" cols="70" required></textarea>
                         <label for="objetivo">Objetivo</label>
-                        <textarea id="objetivo" name="objetivo" rows="3" required></textarea>
                     </div>
-                    <div class="input-field">
-                        <label for="Instructor">Instructor</label>
+                    <div class="campo">
                         <select id="Instructor" name="Instructor" required>
                             <option value="" disabled selected>Selecciona un instructor</option>
                             <!-- Aquí se agregarán las opciones dinámicamente desde el servidor -->
                         </select>
                     </div>
-                    <div class="input-field">
-                        <label for="Modalidad">Modalidad</label>
+                    <div class="campo">
                         <select id="Modalidad" name="Modalidad" required>
                             <option value="" disabled selected>Selecciona una modalidad</option>
                             <option value="Presencial">Presencial</option>
@@ -217,17 +211,17 @@ if ($idActividad === null) {
                             <option value="Híbrida">Híbrida</option>
                         </select>
                     </div>
-                    <div class="input-field">
-                        <label for="Fecha">Fecha</label>
+                    <div class="campo">
                         <input type="text" id="Fecha" name="Fecha" required>
+                        <label for="Fecha">Fecha</label>
                     </div>
-                    <div class="input-field">
-                        <label for="Duracion">Duración</label>
+                    <div class="campo">
                         <input type="text" id="Duracion" name="Duracion" required>
+                        <label for="Duracion">Duración</label>
                     </div>
-                    <div class="input-field">
-                        <label for="Horario">Horario</label>
+                    <div class="campo">
                         <input type="text" id="Horario" name="Horario" required>
+                        <label for="Horario">Horario</label>
                     </div>
                 </form>
             </div>

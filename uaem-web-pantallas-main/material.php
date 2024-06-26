@@ -17,6 +17,17 @@
    $conexion = new CConexion();
    $conexion->conexionBD(); // Conectar a la base de datos
 
+   $uploadStatus = "";
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['file'])) {
+        $targetDir = "uploads/";
+        $targetFile = $targetDir . basename($_FILES["file"]["name"]);
+        if (move_uploaded_file($_FILES["file"]["tmp_name"], $targetFile)) {
+            $uploadStatus = "<p class='text-success'>Archivo subido correctamente: " . htmlspecialchars(basename($_FILES["file"]["name"])) . "</p>";
+        } else {
+            $uploadStatus = "<p class='text-danger'>Hubo un error al subir el archivo.</p>";
+        }
+    }
+
     ?>
 
     <div id="headerContainer"></div>
@@ -27,8 +38,7 @@
                 <ul class="list-unstyled vertical-nav">
                     <li><a href="perfil.php" class="btn btn-block my-1 menu">Perfil</a></li>
                     <li><a href="instructor.php" class="btn btn-primary btn-block my-1 menu">Formulario</a></li>
-                    <li><a href="Asistencia.php" class="btn btn-primary btn-block my-1 menu">Lista de Asistencia</a>
-                    </li>
+                    <li><a href="Asistencia.php" class="btn btn-primary btn-block my-1 menu">Lista de Asistencia</a></li>
                     <li><a href="material.php" class="btn btn-primary btn-block my-1 menu">Material</a></li>
                     <li><a href="salir.php" class="btn btn-primary btn-block my-1 menu">Salir</a></li>
                 </ul>
@@ -39,23 +49,29 @@
                     <div class="card-body">
                         <h2 class="card-title">Sube un archivo</h2>
                         <p class="card-text">Adjunte el archivo a continuación</p>
-                        <button class="upload-area">
-                            <div class="img">
-                                <img src="./Assets/img/upload.png" alt="upload">
+                        <form id="upload-form" method="POST" enctype="multipart/form-data">
+                            <label for="file-upload" class="upload-area">
+                                <div class="img">
+                                    <img src="./Assets/img/upload.png" alt="upload">
+                                </div>
+                                <span class="upload-area-title">Arrastre los archivos aquí para cargarlos.</span>
+                                <span class="upload-area-description">
+                                    Alternativamente, puede seleccionar un archivo <br /><strong>clic aquí</strong>
+                                </span>
+                                <input id="file-upload" type="file" style="display: none;" name="file">
+                            </label>
+                            <div class="text-right mt-3">
+                                <button type="submit" class="btn btn-primary ml-2">Subir archivos</button>
                             </div>
-                            <span class="upload-area-title">Arrastre los archivos aquí para cargarlos.</span>
-                            <span class="upload-area-description">
-                                Alternativamente, puede seleccionar un archivo <br /><strong>clic aquí</strong>
-                            </span>
-                        </button>
-                        <div class="text-right mt-3">
-                            <button class="btn btn-primary ml-2">Subir archivos</button>
+                        </form>
+                        <div id="upload-status">
+                            <?php echo $uploadStatus; ?>
                         </div>
                     </div>
                 </div>
             </div>
-
-
+        </div>
+    </div>
             <!-- Footer -->
             <footer class="footer">
                 <p>Departamento de Formación Docente</p>
@@ -63,6 +79,10 @@
             </footer>
 
             <script>
+                document.querySelector('.upload-area').addEventListener('click', function() {
+            document.getElementById('file-upload').click();
+        });
+
             fetch("./templates/header.html")
                 .then((response) => response.text())
                 .then((data) => {

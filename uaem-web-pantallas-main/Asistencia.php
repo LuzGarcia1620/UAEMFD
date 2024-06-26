@@ -12,13 +12,13 @@
 
 <body>
 
-<?php
+    <?php
     include_once("conexion.php");
     $conexion = new CConexion();
     $conexion->conexionBD();
     
     ?>
-    
+
     <div id="headerContainer"></div>
     <div class="container-fluid">
         <div class="row">
@@ -35,6 +35,18 @@
                 </ul>
             </div>
             <!-- Contenido Principal -->
+            <div class="titulo">Actividades</div>
+            <div class="line"></div>
+            <div class="col-lg-10">
+                <div class="opciones">
+                    <select>
+                        <option value="">Selecciona la opción deseada</option>
+                        <option value="Subir">Subir lista</option>
+                        <option value="Ver">Ver lista</option>
+                    </select>
+                </div>
+            </div>
+
 
             <!-- Footer -->
             <footer class="footer">
