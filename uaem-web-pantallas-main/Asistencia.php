@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Perfil de Usuario</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="./Assets/css/perfil.css" />
+    <link rel="stylesheet" href="./Assets/css/asistencia.css" />
     <link rel="stylesheet" href="./Assets/css/styles.css" />
 </head>
 
@@ -35,9 +35,10 @@
                 </ul>
             </div>
             <!-- Contenido Principal -->
-            <div class="titulo">Actividades</div>
-            <div class="line"></div>
             <div class="col-lg-10">
+            <div class="titulo">Asistencia</div>
+            <div class="line"></div>
+            
                 <div class="opciones">
                     <select>
                         <option value="">Selecciona la opción deseada</option>

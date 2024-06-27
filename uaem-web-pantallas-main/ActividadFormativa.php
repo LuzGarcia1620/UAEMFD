@@ -136,10 +136,9 @@
                     </div>
                     <div class="campo">
                         <select id="Instructor" name="Instructor" required="">
-                            <option value="" disabled selected></option>
+                            <option value="" disabled selected>Seleccione el instructor</option>
                             <!-- Aquí se agregarán las opciones dinámicamente desde el servidor -->
                         </select>
-                        <label for="Instructor">Instructor</label>
                     </div>
                     <div class="campo">
                                 <select id="modalidad" name="modalidad" required onchange="toggleOtraModalidad(this)">
@@ -199,7 +198,7 @@
                     <div class="campo">
                         <select id="Instructor" name="Instructor" required>
                             <option value="" disabled selected>Selecciona un instructor</option>
-                            <!-- Aquí se agregarán las opciones dinámicamente desde el servidor -->
+                            
                         </select>
                     </div>
                     <div class="campo">

@@ -14,13 +14,87 @@
     <?php
     include_once("conexion.php");
     $conexion = new CConexion();
-    $conexion->conexionBD();
+    $pdo = $conexion->conexionBD();
+    
+    // Manejo de solicitudes
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $accion = $_POST['accion'];
+        $nombre = $_POST['nombre'] ?? null;
+        $apellidoPaterno = $_POST['apellidoPaterno'] ?? null;
+        $apellidoMaterno = $_POST['apellidoMaterno'] ?? null;
+        $usuario = $_POST['usuario'] ?? null;
+        $correo = $_POST['correo'] ?? null;
+        $password = $_POST['password'] ?? null;
+        $rol = $_POST['rol'] ?? null;
+        $idUsuario = $_POST['idUsuario'] ?? null;
+    
+        try {
+            if ($accion == 'agregar') {
+                $sql = "INSERT INTO USUARIO (nombre, paterno, materno, usuario, correo, password, idRol) VALUES (:nombre, :apellidoPaterno, :apellidoMaterno, :usuario, :correo, :password, :rol)";
+                $stmt = $pdo->prepare($sql);
+                $resultado = $stmt->execute([
+                    ':nombre' => $nombre,
+                    ':apellidoPaterno' => $apellidoPaterno,
+                    ':apellidoMaterno' => $apellidoMaterno,
+                    ':usuario' => $usuario,
+                    ':correo' => $correo,
+                    ':password' => $password,
+                    ':rol' => $rol
+                ]);
+    
+                if ($resultado) {
+                    echo json_encode(['success' => true, 'message' => 'Usuario agregado exitosamente.']);
+                } else {
+                    echo json_encode(['success' => false, 'message' => 'Error al agregar el usuario.']);
+                }
+            } elseif ($accion == 'editar') {
+                $sql = "UPDATE USUARIO SET nombre = :nombre, paterno = :apellidoPaterno, materno = :apellidoMaterno, usuario = :usuario, correo = :correo, idRol = :rol WHERE idUsuario = :idUsuario";
+                $stmt = $pdo->prepare($sql);
+                $resultado = $stmt->execute([
+                    ':nombre' => $nombre,
+                    ':apellidoPaterno' => $apellidoPaterno,
+                    ':apellidoMaterno' => $apellidoMaterno,
+                    ':usuario' => $usuario,
+                    ':correo' => $correo,
+                    ':rol' => $rol,
+                    ':idUsuario' => $idUsuario
+                ]);
+    
+                if ($resultado) {
+                    echo json_encode(['success' => true, 'message' => 'Usuario editado exitosamente.']);
+                } else {
+                    echo json_encode(['success' => false, 'message' => 'Error al editar el usuario.']);
+                }
+            } elseif ($accion == 'eliminar') {
+                $sql = "DELETE FROM USUARIO WHERE idUsuario = :idUsuario";
+                $stmt = $pdo->prepare($sql);
+                $resultado = $stmt->execute([':idUsuario' => $idUsuario]);
+    
+                if ($resultado) {
+                    echo json_encode(['success' => true, 'message' => 'Usuario eliminado exitosamente.']);
+                } else {
+                    echo json_encode(['success' => false, 'message' => 'Error al eliminar el usuario.']);
+                }
+            }
+        } catch (PDOException $e) {
+            echo json_encode(['success' => false, 'message' => 'Error en la solicitud: ' . $e->getMessage()]);
+        }
+    }
+
+    // Roles
+    $sql = "SELECT id, nombre FROM ROL";
+    $stmt = $pdo->query($sql);
+    $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $options = "";
+    foreach ($resultado as $fila) {
+        $options .= "<option value='{$fila['id']}'>{$fila['nombre']}</option>";
+    }
     ?>
 
     <div id="headerContainer"></div>
     <div class="container-fluid">
         <div class="row">
-            <!-- Navegación Vertical -->
             <div class="col-lg-2">
                 <ul class="list-unstyled vertical-nav">
                     <li><a href="perfil.php" class="btn btn-block my-1 menu">Perfil</a></li>
@@ -33,7 +107,6 @@
                 </ul>
             </div>
 
-            <!-- Contenido Principal -->
             <div class="col-lg-10 min mv-10">
                 <br>
                 <div class="botones">
@@ -53,120 +126,73 @@
                             style="cursor: pointer; width: 70px;">
                     </div>
                 </div>
-                <!-- Botón y Modal para agregar usuarios -->
 
                 <div>
                     <div class="divider-line"></div>
                     <div class="card-container d-flex justify-content-around">
-                        <div class="card">
-                            <div class="name">María Gonzalez</div>
-                            <div class="label">Correo:</div>
-                            <div class="email">mariagonzalez@uaem.mx
-
-                            </div>
-                            <div class="role">Administrador</div>
-                            <div class="button-container">
-                                <div class="button edit-btn" data-toggle="modal" data-target="#editarUsuarioModal">
-                                    Editar</div>
-                                <div class="button deactivate-btn" onclick="desactivarUsuario('María Gonzalez')">
-                                    Desactivar</div>
-                                <div class="button delete-btn" onclick="eliminarUsuario('María Gonzalez')">Eliminar
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="name">Carlos Lopez</div>
-                            <div class="label">Correo:</div>
-                            <div class="email">carloslopez@uaem.mx</div>
-                            <div class="role">instructor</div>
-                            <div class="button-container">
-                                <div class="button edit-btn" data-toggle="modal" data-target="#editarUsuarioModal">
-                                    Editar</div>
-                                <div class="button deactivate-btn" onclick="desactivarUsuario('Carlos Lopez')">
-                                    Desactivar</div>
-                                <div class="button delete-btn" onclick="eliminarUsuario('Carlos Lopez')">Eliminar
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="name">Ana Martinez</div>
-                            <div class="label">Correo:</div>
-                            <div class="email">anamartinez@uaem.mx</div>
-                            <div class="role">instructor</div>
-                            <div class="button-container">
-                                <div class="button edit-btn" data-toggle="modal" data-target="#editarUsuarioModal">
-                                    Editar</div>
-                                <div class="button deactivate-btn" onclick="desactivarUsuario('Ana Martinez')">
-                                    Desactivar</div>
-                                <div class="button delete-btn" onclick="eliminarUsuario('Ana Martinez')">Eliminar
-                                </div>
-
-                            </div>
-                        </div>
+                        <!-- Aquí se mostrarán las tarjetas de usuarios -->
                     </div>
                 </div>
             </div>
         </div>
+
         <!-- Modal para agregar usuarios -->
         <div class="modal fade" id="agregarUsuariosModal" tabindex="-1" role="dialog"
             aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Agregar Usuarios</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Agregar Usuario</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <!-- Contenido del modal -->
-                        <div class="campo">
-                            <input type="text" id="nombre" name="nombre" required>
-                            <label for="nombre">Nombre(s)</label>
-                        </div>
-                        <div class="campo">
-                            <input type="text" id="apellidoPaterno" name="apellidoPaterno" required>
-                            <label for="apellidoPaterno">Apellido Paterno</label>
-                        </div>
-                        <div class="campo">
-                            <input type="text" id="apellidoMaterno" name="apellidoMaterno" required>
-                            <label for="apellidoMaterno">Apellido Materno</label>
-                        </div>
-                        <div class="campo">
-                            <input type="grado" id="grado" name="grado" required>
-                            <label for="Último grado académico">Último grado académico</label>
-                        </div>
-                        <div class="campo">
-                            <input type="Institucion" id="Institucion" name="Institucion" required>
-                            <label for="Institucion">Institución</label>
-                        </div>
-                        <div class="campo">
-                            <input type="tel" id="telefono" name="telefono" required>
-                            <label for="telefono">Teléfono</label>
-                        </div>
-                        <div class="campo">
-                            <input type="email" id="correo" name="correo" required>
-                            <label for="correo">Correo Electrónico</label>
-                        </div>
-                        <div class="campo">
-                            <input type="password" id="password" name="password" required>
-                            <label for="password">Contraseña</label>
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary">Guardar</button>
+                        <form id="agregarUsuarioForm">
+                            <div class="form-group">
+                                <label for="nombre">Nombre(s)</label>
+                                <input type="text" id="nombre" name="nombre" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="apellidoPaterno">Apellido Paterno</label>
+                                <input type="text" id="apellidoPaterno" name="apellidoPaterno" class="form-control"
+                                    required>
+                            </div>
+                            <div class="form-group">
+                                <label for="apellidoMaterno">Apellido Materno</label>
+                                <input type="text" id="apellidoMaterno" name="apellidoMaterno" class="form-control"
+                                    required>
+                            </div>
+                            <div class="form-group">
+                                <label for="usuario">Usuario</label>
+                                <input type="text" id="usuario" name="usuario" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="correo">Correo Electrónico</label>
+                                <input type="email" id="correo" name="correo" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Contraseña</label>
+                                <input type="password" id="password" name="password" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="rol">Rol</label>
+                                <select id="rol" name="rol" class="form-control" required>
+                                    <?php echo $options; ?>
+                                </select>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-primary">Guardar</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Fin del modal -->
 
-        <!-- MODAL PARA EDITAR USUARIOS -->
-        <div class="modal fade" id="editarUsuarioModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        <!-- Modal para editar usuarios -->
+        <div class="modal fade" id="editarUsuariosModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -177,55 +203,52 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <!-- Contenido del modal -->
-                        <div class="campo">
-                            <input type="text" id="nombre" name="nombre" required>
-                            <label for="nombre">Nombre(s)</label>
-                        </div>
-                        <div class="campo">
-                            <input type="text" id="apellidoPaterno" name="apellidoPaterno" required>
-                            <label for="apellidoPaterno">Apellido Paterno</label>
-                        </div>
-                        <div class="campo">
-                            <input type="text" id="apellidoMaterno" name="apellidoMaterno" required>
-                            <label for="apellidoMaterno">Apellido Materno</label>
-                        </div>
-                        <div class="campo">
-                            <input type="text" id="grado" name="grado" required>
-                            <label for="Último grado académico">Último grado académico</label>
-                        </div>
-                        <div class="campo">
-                            <input type="text" id="institucion" name="institucion" required>
-                            <label for="institucion">Institución</label>
-                        </div>
-                        <div class="campo">
-                            <input type="tel" id="telefono" name="telefono" required>
-                            <label for="telefono">Teléfono</label>
-                        </div>
-                        <div class="campo">
-                            <input type="email" id="correo" name="correo" required>
-                            <label for="correo">Correo Electrónico</label>
-                        </div>
-                        <div class="campo">
-                            <input type="password" id="password" name="password" required>
-                            <label for="password">Contraseña</label>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary">Guardar Cambios</button>
+                        <form id="editarUsuarioForm">
+                            <input type="hidden" id="idUsuarioEditar" name="idUsuario">
+                            <div class="form-group">
+                                <label for="nombreEditar">Nombre(s)</label>
+                                <input type="text" id="nombreEditar" name="nombre" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="apellidoPaternoEditar">Apellido Paterno</label>
+                                <input type="text" id="apellidoPaternoEditar" name="apellidoPaterno"
+                                    class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="apellidoMaternoEditar">Apellido Materno</label>
+                                <input type="text" id="apellidoMaternoEditar" name="apellidoMaterno"
+                                    class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="usuarioEditar">Usuario</label>
+                                <input type="text" id="usuarioEditar" name="usuario" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="correoEditar">Correo Electrónico</label>
+                                <input type="email" id="correoEditar" name="correo" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="rolEditar">Rol</label>
+                                <select id="rolEditar" name="rol" class="form-control" required>
+                                    <?php echo $options; ?>
+                                </select>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-primary">Guardar</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-
         <!-- Footer -->
         <footer class="footer">
             <p>Departamento de Formación Docente</p>
             <p>Av. Universidad 1001 Col. Chamilpa C.P. 62209, Cuernavaca, Morelos</p>
         </footer>
 
-        <!-- Scripts al final del cuerpo para mejorar el rendimiento de carga -->
+        <!-- Scripts -->
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -238,101 +261,91 @@
                 document.getElementById("headerContainer").innerHTML = data;
             });
 
-        // JavaScript para mostrar el modal
-        document.getElementById("agregarUserBtn").addEventListener("click", function() {
-            $('#agregarUsuariosModal').modal('show');
-        });
+        document.addEventListener('DOMContentLoaded', function() {
+            const agregarUserBtn = document.getElementById('agregarUserBtn');
+            const agregarUsuarioForm = document.getElementById('agregarUsuarioForm');
+            const editarUsuarioForm = document.getElementById('editarUsuarioForm');
+            const buscarInput = document.getElementById('buscarInput');
+            const cardContainer = document.querySelector('.card-container');
 
-        // SweetAlert2 con botones de Bootstrap
-        const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-                confirmButton: 'btn btn-success',
-                cancelButton: 'btn btn-danger'
-            },
-            buttonsStyling: false
-        });
-
-        // Función para desactivar usuarios
-        function desactivarUsuario(nombreUsuario) {
-            swalWithBootstrapButtons.fire({
-                title: '¿Estás seguro?',
-                text: '¡No podrás revertir esto!',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Sí, desactivar',
-                cancelButtonText: 'Cancelar',
-                reverseButtons: true
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Aquí puedes implementar la lógica para desactivar el usuario
-                    swalWithBootstrapButtons.fire({
-                        title: 'Desactivado',
-                        text: `El usuario ${nombreUsuario} ha sido desactivado.`,
-                        icon: 'success'
-                    });
-                } else if (
-                    /* Read more about handling dismissals below */
-                    result.dismiss === Swal.DismissReason.cancel
-                ) {
-                    swalWithBootstrapButtons.fire({
-                        title: 'Cancelado',
-                        text: 'Tu usuario está seguro :)',
-                        icon: 'error'
-                    });
-                }
+            // Mostrar el modal para agregar usuario
+            agregarUserBtn.addEventListener('click', function() {
+                $('#agregarUsuariosModal').modal('show');
             });
-        }
 
-        // Función para eliminar usuarios
-        function eliminarUsuario(nombreUsuario) {
-            swalWithBootstrapButtons.fire({
-                title: '¿Estás seguro?',
-                text: '¡No podrás revertir esto!',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Sí, eliminar',
-                cancelButtonText: 'Cancelar',
-                reverseButtons: true
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Aquí implementar lógica para eliminar el usuario
-                    swalWithBootstrapButtons.fire({
-                        title: 'Eliminado',
-                        text: `El usuario ${nombreUsuario} ha sido eliminado.`,
-                        icon: 'success'
+            // Envío del formulario para agregar usuario
+            agregarUsuarioForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(agregarUsuarioForm);
+                formData.append('accion', 'agregar');
+
+                fetch('', {
+                        method: 'POST',
+                        body: formData,
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            Swal.fire('Éxito', 'Usuario agregado exitosamente.', 'success');
+                            $('#agregarUsuariosModal').modal('hide');
+                            // Actualizar la lista de usuarios
+                            actualizarListaUsuarios();
+                        } else {
+                            Swal.fire('Error', 'Error al agregar el usuario.', 'error');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        Swal.fire('Error', 'Error en la solicitud.', 'error');
                     });
-                } else if (
-                    result.dismiss === Swal.DismissReason.cancel
-                ) {
-                    swalWithBootstrapButtons.fire({
-                        title: 'Cancelado',
-                        text: 'Tu usuario está seguro :)',
-                        icon: 'error'
-                    });
-                }
             });
-        }
 
-         // Función para filtrar las tarjetas de usuario
-    function filtrarUsuarios() {
-        var input = document.getElementById('buscarInput');
-        var filter = input.value.toUpperCase();
-        var cards = document.getElementsByClassName('card');
+            // Envío del formulario para editar usuario
+            editarUsuarioForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(editarUsuarioForm);
+                formData.append('accion', 'editar');
 
-        for (var i = 0; i < cards.length; i++) {
-            var name = cards[i].getElementsByClassName('name')[0];
-            var email = cards[i].getElementsByClassName('email')[0];
+                fetch('', {
+                        method: 'POST',
+                        body: formData,
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            Swal.fire('Éxito', 'Usuario editado exitosamente.', 'success');
+                            $('#editarUsuariosModal').modal('hide');
+                            // Actualizar la lista de usuarios
+                            actualizarListaUsuarios();
+                        } else {
+                            Swal.fire('Error', 'Error al editar el usuario.', 'error');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        Swal.fire('Error', 'Error en la solicitud.', 'error');
+                    });
+            });
 
-            if (name.innerHTML.toUpperCase().indexOf(filter) > -1 || email.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                cards[i].style.display = "";
-            } else {
-                cards[i].style.display = "none";
+            // filtrar tarjetas de usuario
+            function filtrarTarjetas() {
+                const filtro = buscarInput.value.toLowerCase();
+                const tarjetas = cardContainer.getElementsByClassName('card');
+
+                for (let i = 0; i < tarjetas.length; i++) {
+                    let card = tarjetas[i];
+                    const texto = card.innerText.toLowerCase();
+                    if (texto.includes(filtro)) {
+                        card.style.display = '';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                }
             }
-        }
-    }
 
-    // Evento para ejecutar la función de filtrado cuando se escribe en el input
-    document.getElementById('buscarInput').addEventListener('keyup', filtrarUsuarios);
+            // ejecutar la función de filtrado cuando se escribe en el input
+            buscarInput.addEventListener('input', filtrarTarjetas);
+        });
         </script>
     </div>
 </body>
